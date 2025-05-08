@@ -15,6 +15,13 @@ LazyData: true
 URL: https://github.com/p0bs/PremPredict, https://p0bs.github.io/PremPredict/
 BugReports: https://github.com/p0bs/PremPredict/issues
 RoxygenNote: 7.3.2
+Imports:
+    dplyr,
+    jsonlite,
+    lubridate,
+    rlang,
+    stringr,
+    tidyr
 Suggests: 
     tibble,
     testthat (>= 3.0.0)
