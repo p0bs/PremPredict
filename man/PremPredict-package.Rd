@@ -4,9 +4,9 @@
 \name{PremPredict-package}
 \alias{PremPredict}
 \alias{PremPredict-package}
-\title{PremPredict: What the Package Does (Title Case)}
+\title{PremPredict: Predict the Premier League}
 \description{
-More about what it does (maybe more than one line). Continuation lines should be indented.
+Provides functions to predict the outcome of Premier League games and seasons.
 }
 \seealso{
 Useful links:
@@ -18,7 +18,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jane Doe \email{jane@example.com}
+\strong{Maintainer}: Robin Penfold \email{robin.penfold@icloud.com}
 
 }
 \keyword{internal}

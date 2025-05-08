@@ -1,17 +1,15 @@
 Package: PremPredict
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Predict the Premier League
 Version: 0.1.0.9000
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Authors@R:
+    person(given = "Robin",
+           family = "Penfold",
+           role = c("aut", "cre"),
+           email = "robin.penfold@icloud.com"
+           )
+Description: Provides functions to predict the outcome of Premier League games and seasons.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/p0bs/PremPredict, https://p0bs.github.io/PremPredict/
