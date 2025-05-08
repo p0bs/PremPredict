@@ -1,7 +1,7 @@
 Package: PremPredict
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(
     person(
       "Jane", "Doe",
@@ -16,3 +16,4 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/p0bs/PremPredict
 BugReports: https://github.com/p0bs/PremPredict/issues
+RoxygenNote: 7.3.2
