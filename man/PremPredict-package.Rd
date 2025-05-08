@@ -12,6 +12,7 @@ More about what it does (maybe more than one line). Continuation lines should be
 Useful links:
 \itemize{
   \item \url{https://github.com/p0bs/PremPredict}
+  \item \url{https://p0bs.github.io/PremPredict/}
   \item Report bugs at \url{https://github.com/p0bs/PremPredict/issues}
 }
 
