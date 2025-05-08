@@ -1,0 +1,12 @@
+#' Key data for the PremPredict package
+#'
+#' A dataset containing the teams in the latest Premier League season.
+#'
+#' @format A data frame with 20 rows (one for each team) and 3 variables:
+#' \describe{
+#'   \item{teamName}{The long name of the team in question}
+#'   \item{shortName}{The three-letter code of the team in question}
+#'   \item{midName}{The more-readable name of the team in question}
+#' }
+#' @source \url{https://www.premierleague.com/}
+"teams"
