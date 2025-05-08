@@ -10,7 +10,10 @@
 coverage](https://codecov.io/gh/p0bs/PremPredict/graph/badge.svg)](https://app.codecov.io/gh/p0bs/PremPredict)
 <!-- badges: end -->
 
-The goal of PremPredict is to …
+The goal of PremPredict is to help you to generate sensible predictions
+for individual games or an entire season of the Premier League.
+
+<br/>
 
 ## Installation
 
@@ -22,35 +25,27 @@ You can install the development version of PremPredict from
 pak::pak("p0bs/PremPredict")
 ```
 
-## Example
+<br/>
 
-This is a basic example which shows you how to solve a common problem:
+## Approach
 
-``` r
-library(PremPredict)
-## basic example code
-```
+I use a simplified version of [David Firth’s
+approach](https://github.com/DavidFirth/alt3code) and data from the
+[Open Football repo](https://github.com/openfootball/football.json) on
+GitHub to predict the outcome of this season’s Premier League.
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+The predictions are based on a team’s strength, given its performance in
+recent times. But how should we define *recent*? In order to duck this
+question, you could choose two different time periods:
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
+- over all of last season and this season so far; and
+- over the last 19 games (i.e. half season)
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
+Here are those predictions (on a **given date**). Please note that 0.0%
+and 100.0% outcomes do not necessarily signify certainty in their
+specific assessment, as:
 
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+- this model uses 100,000 simulations and not 1,000; and more
+  pertinently
+- this model (like all models) is imperfect (but, I think, better than
+  no model at all)
