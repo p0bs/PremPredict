@@ -24,4 +24,4 @@ teams <- tibble::tribble(
   "Wolverhampton Wanderers FC", "WOL", "Wolves"
   )
 
-usethis::use_data(teams, overwrite = TRUE)
+usethis::use_data(teams, overwrite = TRUE, internal = TRUE)
