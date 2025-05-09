@@ -13,6 +13,10 @@ coverage](https://codecov.io/gh/p0bs/PremPredict/graph/badge.svg)](https://app.c
 The goal of PremPredict is to help you to generate sensible predictions
 for individual games or an entire season of the Premier League.
 
+You can find my automatically-updated Premier League predictor (that
+uses this codebase) on [this
+repo](https://github.com/p0bs/PL-scan?tab=readme-ov-file#predicting-this-seasons-premier-league).
+
 <br/>
 
 ## Installation
