@@ -14,7 +14,7 @@ get_openData(value_path, table_teams, value_yearEnd)
 
 \item{table_teams}{These are the teams in the season's Premier League, available as the `teams` dataset in this package.}
 
-\item{value_yearEnd}{This is the integer required as year in which the season ends.}
+\item{value_yearEnd}{This is the integer required as the year in which the season ends.}
 }
 \description{
 This function retrieves the latest data on the Premier League results for a given season.

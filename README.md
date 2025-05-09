@@ -36,14 +36,9 @@ GitHub to predict the outcome of this season’s Premier League.
 
 The predictions are based on a team’s strength, given its performance in
 recent times. But how should we define *recent*? In order to duck this
-question, you could choose two different time periods:
-
-- over all of last season and this season so far; and
-- over the last 19 games (i.e. half season)
-
-Here are those predictions (on a **given date**). Please note that 0.0%
-and 100.0% outcomes do not necessarily signify certainty in their
-specific assessment, as:
+question, you could choose a number of different time periods. Please
+note that 0.0% and 100.0% outcomes in the results do not necessarily
+signify certainty in their specific assessment, as:
 
 - this model uses 100,000 simulations and not 1,000; and more
   pertinently
