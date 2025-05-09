@@ -18,7 +18,6 @@ RoxygenNote: 7.3.2
 Imports:
     dplyr,
     jsonlite,
-    lifecycle,
     lubridate,
     rlang,
     stringr,
