@@ -4,7 +4,7 @@
 \alias{get_openData}
 \title{Get the latest available results for the Premier League in a given season}
 \source{
-<https://github.com/openfootball/football.json>
+\url{https://github.com/openfootball/football.json}
 }
 \usage{
 get_openData(value_path, table_teams, value_yearEnd)
@@ -12,7 +12,7 @@ get_openData(value_path, table_teams, value_yearEnd)
 \arguments{
 \item{value_path}{This  is the location of the data on GitHub. See the example below for reference and use an address of the form, 'https://raw.githubusercontent.com/openfootball/football.json/refs/heads/master/2024-25/en.1.json'.}
 
-\item{table_teams}{These are the teams in the season's Premier League, available as the `teams` dataset in this package.}
+\item{table_teams}{These are the teams in the season's Premier League, available as the \code{teams} dataset in this package.}
 
 \item{value_yearEnd}{This is the integer required as the year in which the season ends.}
 }
