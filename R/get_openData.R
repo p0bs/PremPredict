@@ -17,7 +17,6 @@
 #' }
 #'
 #' @importFrom rlang .data
-#' @eval lifecycle::badge('experimental')
 
 get_openData <- function(value_path, table_teams, value_yearEnd){
 
