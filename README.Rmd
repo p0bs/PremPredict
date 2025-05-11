@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# PremPredict
+# PremPredict <a href="https://p0bs.github.io/PremPredict/"><img src="man/figures/logo.png" align="right" height="104" alt="PremPredict website" /></a>
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/p0bs/PremPredict/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/p0bs/PremPredict/actions/workflows/R-CMD-check.yaml)
