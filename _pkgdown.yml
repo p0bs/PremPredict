@@ -1,4 +1,22 @@
-url: https://p0bs.github.io/PremPredict/
+home:
+  title: An R package to helps you to generate sensible predictions for individual games or an entire season of the Premier League
+  url: https://p0bs.github.io/PremPredict/
+
 template:
   bootstrap: 5
 
+reference:
+- title: "Data preparation"
+  desc: >
+    Preparing the data for modelling
+- contents:
+  - get_openData
+  - get_results
+  - calc_result_latest
+
+- title: "Data"
+  desc: >
+    Data used in the package
+  contents:
+  - teams
+  - previous_seasons
