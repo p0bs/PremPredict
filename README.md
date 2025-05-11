@@ -46,7 +46,7 @@ question, you could choose a number of different time periods. Please
 note that 0.0% and 100.0% outcomes in the results do not necessarily
 signify certainty in their specific assessment, as:
 
-- this model uses 100,000 simulations and not 1,000; and more
-  pertinently
+- this model is typically used with more than 1,000 simulations; and
+  more pertinently
 - this model (like all models) is imperfect (but, I think, better than
   no model at all)
