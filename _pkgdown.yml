@@ -12,7 +12,8 @@ reference:
 - contents:
   - get_openData
   - get_results
-  - calc_result_latest
+  - calc_game_latest
+  - get_results_filtered
 
 - title: "Data"
   desc: >
