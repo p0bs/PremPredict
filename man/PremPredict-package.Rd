@@ -6,6 +6,8 @@
 \alias{PremPredict-package}
 \title{PremPredict: Predict the Premier League}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Provides functions to predict the outcome of Premier League games and seasons.
 }
 \seealso{
