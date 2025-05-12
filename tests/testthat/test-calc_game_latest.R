@@ -29,7 +29,7 @@ data_results <- get_results(
 
 test_that("functionality works for example", {
   expect_equal(
-    calc_result_latest(data_results),
+    calc_game_latest(data_results),
     282L
     )
 })
