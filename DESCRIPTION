@@ -17,6 +17,8 @@ BugReports: https://github.com/p0bs/PremPredict/issues
 RoxygenNote: 7.3.2
 Imports:
     dplyr,
+    forcats,
+    gnm,
     jsonlite,
     knitr,
     lubridate,

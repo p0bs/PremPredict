@@ -17,6 +17,12 @@ reference:
   - calc_table_current
   - print_table_current
 
+- title: "Modelling"
+  desc: >
+    Modelling the data using Firth's approach
+- contents:
+  - model_prepare_frame
+
 - title: "Data"
   desc: >
     Data used in the package
