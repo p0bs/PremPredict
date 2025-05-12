@@ -22,6 +22,7 @@ reference:
     Modelling the data using Firth's approach
 - contents:
   - model_prepare_frame
+  - model_run
 
 - title: "Data"
   desc: >
