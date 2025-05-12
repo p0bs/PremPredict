@@ -70,7 +70,8 @@ dim(results_combined)
 ```
 
 However, we only wish to look back a full year from the current point
-(which is where each team has two games remaining in the season).
+(which is where each team has a small number of games remaining in the
+season).
 
 ``` r
 game_latest <- calc_game_latest(results = results_combined)
