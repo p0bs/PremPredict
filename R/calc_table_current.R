@@ -34,7 +34,7 @@ calc_table_current <- function(results){
       goaldiff_away = .data$goaldiff_home * -1
     )
 
-  data_table_now <- dplyr::bind_rows(
+  dplyr::bind_rows(
     data_tabulated |>
       dplyr::select("team" = .data$homeTeam, "points" = .data$points_home, "goaldiff" = .data$goaldiff_home),
     data_tabulated |>
@@ -47,6 +47,5 @@ calc_table_current <- function(results){
       .by = .data$team
     ) |>
     dplyr::select("Team" = .data$team, "Played" = .data$games_total, "GD" = .data$goaldiff_total, "Points" = .data$points_total)
-
 
   }
