@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">PremPredict</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,6 +76,206 @@
 <li>this model is typically used with more than 1,000 simulations; and more pertinently</li>
 <li>this model (like all models) is imperfect (but, I think, better than no model at all)</li>
 </ul>
+<p><br></p>
+</div>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<p>Here is an example analysis, using data collected on 12th May 2025 (which wasn’t quite up to date by then).</p>
+<p>First, we collect, combine and tidy the results data.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/p0bs/PremPredict" class="external-link">PremPredict</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"example_thisSeason"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">results_combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_results.html">get_results</a></span><span class="op">(</span><span class="va">example_thisSeason</span>, seasons <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">results_combined</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 652   9</span></span></code></pre></div>
+<p>However, we only wish to look back a full year from the current point (which is where each team has two games remaining in the season).</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">game_latest</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_game_latest.html">calc_game_latest</a></span><span class="op">(</span>results <span class="op">=</span> <span class="va">results_combined</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">results_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_results_filtered.html">get_results_filtered</a></span><span class="op">(</span></span>
+<span>  results <span class="op">=</span> <span class="va">results_combined</span>, </span>
+<span>  index_game_latest <span class="op">=</span> <span class="va">game_latest</span>, </span>
+<span>  lookback_rounds <span class="op">=</span> <span class="fl">38L</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">results_filtered</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 412</span></span>
+<span><span class="co">#&gt; Columns: 8</span></span>
+<span><span class="co">#&gt; $ matchday &lt;date&gt; 2024-04-27, 2024-04-27, 2024-04-27, 2024-04-27, 2024-04-28, …</span></span>
+<span><span class="co">#&gt; $ homeTeam &lt;chr&gt; "WHU", "FUL", "EVE", "AST", "BOU", "TOT", "NOT", "CHE", "ARS"…</span></span>
+<span><span class="co">#&gt; $ awayTeam &lt;chr&gt; "LIV", "CPA", "BRE", "CHE", "BRI", "ARS", "MCI", "TOT", "BOU"…</span></span>
+<span><span class="co">#&gt; $ FTHG     &lt;dbl&gt; 2, 1, 1, 2, 3, 2, 0, 2, 3, 0, 5, 1, 5, 4, 4, 0, 1, 1, 1, 2, 0…</span></span>
+<span><span class="co">#&gt; $ FTAG     &lt;dbl&gt; 2, 1, 0, 2, 0, 3, 2, 0, 0, 0, 1, 0, 0, 2, 0, 4, 2, 1, 3, 3, 1…</span></span>
+<span><span class="co">#&gt; $ FTR      &lt;chr&gt; "D", "D", "H", "D", "H", "A", "A", "H", "H", "D", "H", "H", "…</span></span>
+<span><span class="co">#&gt; $ played   &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, T…</span></span>
+<span><span class="co">#&gt; $ match    &lt;chr&gt; "241", "242", "243", "244", "245", "246", "247", "248", "249"…</span></span></code></pre></div>
+<p>The number of rows isn’t 380, as some games this season have yet to be played and some games from last year didn’t feature all of our teams from this season (as three teams were promoted from the Championship).</p>
+<p>For reference, we can see the prevailing table.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">example_thisSeason</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/calc_table_current.html">calc_table_current</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/print_table_current.html">print_table_current</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Team</th>
+<th align="right">Played</th>
+<th align="right">GD</th>
+<th align="right">Points</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">LIV</td>
+<td align="right">35</td>
+<td align="right">46</td>
+<td align="right">82</td>
+</tr>
+<tr class="even">
+<td align="left">ARS</td>
+<td align="right">35</td>
+<td align="right">33</td>
+<td align="right">67</td>
+</tr>
+<tr class="odd">
+<td align="left">MCI</td>
+<td align="right">35</td>
+<td align="right">24</td>
+<td align="right">64</td>
+</tr>
+<tr class="even">
+<td align="left">NEW</td>
+<td align="right">35</td>
+<td align="right">21</td>
+<td align="right">63</td>
+</tr>
+<tr class="odd">
+<td align="left">CHE</td>
+<td align="right">35</td>
+<td align="right">21</td>
+<td align="right">63</td>
+</tr>
+<tr class="even">
+<td align="left">NOT</td>
+<td align="right">34</td>
+<td align="right">12</td>
+<td align="right">60</td>
+</tr>
+<tr class="odd">
+<td align="left">AST</td>
+<td align="right">35</td>
+<td align="right">6</td>
+<td align="right">60</td>
+</tr>
+<tr class="even">
+<td align="left">BOU</td>
+<td align="right">35</td>
+<td align="right">13</td>
+<td align="right">53</td>
+</tr>
+<tr class="odd">
+<td align="left">BRE</td>
+<td align="right">35</td>
+<td align="right">9</td>
+<td align="right">52</td>
+</tr>
+<tr class="even">
+<td align="left">BRI</td>
+<td align="right">35</td>
+<td align="right">1</td>
+<td align="right">52</td>
+</tr>
+<tr class="odd">
+<td align="left">FUL</td>
+<td align="right">35</td>
+<td align="right">3</td>
+<td align="right">51</td>
+</tr>
+<tr class="even">
+<td align="left">CPA</td>
+<td align="right">34</td>
+<td align="right">-4</td>
+<td align="right">45</td>
+</tr>
+<tr class="odd">
+<td align="left">WOL</td>
+<td align="right">35</td>
+<td align="right">-11</td>
+<td align="right">41</td>
+</tr>
+<tr class="even">
+<td align="left">EVE</td>
+<td align="right">35</td>
+<td align="right">-7</td>
+<td align="right">39</td>
+</tr>
+<tr class="odd">
+<td align="left">MUN</td>
+<td align="right">35</td>
+<td align="right">-9</td>
+<td align="right">39</td>
+</tr>
+<tr class="even">
+<td align="left">TOT</td>
+<td align="right">35</td>
+<td align="right">6</td>
+<td align="right">38</td>
+</tr>
+<tr class="odd">
+<td align="left">WHU</td>
+<td align="right">35</td>
+<td align="right">-19</td>
+<td align="right">37</td>
+</tr>
+<tr class="even">
+<td align="left">IPS</td>
+<td align="right">35</td>
+<td align="right">-41</td>
+<td align="right">22</td>
+</tr>
+<tr class="odd">
+<td align="left">LEI</td>
+<td align="right">35</td>
+<td align="right">-47</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="left">SOU</td>
+<td align="right">35</td>
+<td align="right">-57</td>
+<td align="right">11</td>
+</tr>
+</tbody>
+</table>
+<p>We can now model the strengths of the sides at home and away.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">results_filtered</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/model_prepare_frame.html">model_prepare_frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/model_run.html">model_run</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; gnm::gnm(formula = count ~ -1 + s + draw, eliminate = match, </span></span>
+<span><span class="co">#&gt;     family = stats::quasipoisson, data = modelframe, start = rep(0, </span></span>
+<span><span class="co">#&gt;         2 * nTeams + 1))</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients of interest:</span></span>
+<span><span class="co">#&gt; sARS_home  sAST_home  sBOU_home  sBRE_home  sBRI_home  sCHE_home  sCPA_home  </span></span>
+<span><span class="co">#&gt;    1.7940     1.7286     0.7238     0.8993     0.6519     2.1646     0.4254  </span></span>
+<span><span class="co">#&gt; sEVE_home  sFUL_home  sIPS_home  sLEI_home  sLIV_home  sMCI_home  sMUN_home  </span></span>
+<span><span class="co">#&gt;    0.3589     0.5613    -2.5243    -1.1832     3.1778     2.1444     0.3606  </span></span>
+<span><span class="co">#&gt; sNEW_home  sNOT_home  sSOU_home  sTOT_home  sWHU_home  sWOL_home  sARS_away  </span></span>
+<span><span class="co">#&gt;    1.6629     1.0210    -3.2596    -0.0165    -0.1080    -0.1318     1.7118  </span></span>
+<span><span class="co">#&gt; sAST_away  sBOU_away  sBRE_away  sBRI_away  sCHE_away  sCPA_away  sEVE_away  </span></span>
+<span><span class="co">#&gt;    0.2306     0.7772     0.5660     0.5618     1.0614     0.7559    -0.2114  </span></span>
+<span><span class="co">#&gt; sFUL_away  sIPS_away  sLEI_away  sLIV_away  sMCI_away  sMUN_away  sNEW_away  </span></span>
+<span><span class="co">#&gt;    0.6532    -0.3817    -1.7925     1.8694     1.3556    -0.1576     0.9152  </span></span>
+<span><span class="co">#&gt; sNOT_away  sSOU_away  sTOT_away  sWHU_away  sWOL_away       draw  </span></span>
+<span><span class="co">#&gt;    1.4112    -2.6533    -0.4861    -0.1094     0.1514         NA  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Deviance:            689.4529 </span></span>
+<span><span class="co">#&gt; Pearson chi-squared: 768.8105 </span></span>
+<span><span class="co">#&gt; Residual df:         722</span></span></code></pre></div>
+<p>[I will add further details and more explanation in due course.]</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
