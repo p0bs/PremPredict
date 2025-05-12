@@ -15,6 +15,7 @@ reference:
   - calc_game_latest
   - get_results_filtered
   - calc_table_current
+  - print_table_current
 
 - title: "Data"
   desc: >
