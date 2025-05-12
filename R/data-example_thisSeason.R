@@ -1,0 +1,17 @@
+#' A dataset containing the results of the Premier League from this season so far (as at 2025-05-12).
+#'
+#' @format A data frame with many rows (one for each game this season) and 10 variables:
+#' \describe{
+#'   \item{number_match}{A character of the index for the game in question}
+#'   \item{number_match_integer}{The integer version of `number_match`}
+#'   \item{matchday}{The date on which the game occurred}
+#'   \item{homeTeam}{The `shortName` of the team that played at home in the match}
+#'   \item{awayTeam}{The `shortName` of the team that played away in the match}
+#'   \item{FTHG}{The goals scored by the team that played at home in the match}
+#'   \item{FTAG}{The goals scored by the team that played away in the match}
+#'   \item{FTR}{The result of the match, as a factor of "A" (away win), "D" (draw) or "H" (home win)}
+#'   \item{played}{A logical indicating if this game has been played yet}
+#'   \item{year_end}{The calendar year in which the season ended}
+#' }
+#' @source \url{https://github.com/openfootball/football.json}
+"example_thisSeason"
