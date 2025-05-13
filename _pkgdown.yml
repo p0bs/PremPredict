@@ -24,6 +24,7 @@ reference:
   - model_prepare_frame
   - model_run
   - model_extract_parameters
+  - model_parameters_unplayed
 
 - title: "Data"
   desc: >
