@@ -23,6 +23,7 @@ reference:
 - contents:
   - model_prepare_frame
   - model_run
+  - model_extract_parameters
 
 - title: "Data"
   desc: >
