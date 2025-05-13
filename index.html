@@ -90,7 +90,7 @@
 <span><span class="va">results_combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_results.html">get_results</a></span><span class="op">(</span><span class="va">example_thisSeason</span>, seasons <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">results_combined</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 652   9</span></span></code></pre></div>
-<p>However, we only wish to look back a full year from the current point (which is where each team has two games remaining in the season).</p>
+<p>However, we only wish to look back a full year from the current point (which is where each team has a small number of games remaining in the season).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">game_latest</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_game_latest.html">calc_game_latest</a></span><span class="op">(</span>results <span class="op">=</span> <span class="va">results_combined</span><span class="op">)</span></span>
 <span></span>
