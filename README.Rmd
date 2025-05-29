@@ -81,18 +81,44 @@ The number of rows isn't 380, as some games this season have yet to be played an
 
 For reference, we can see the prevailing table.
 
-```{r}
-example_thisSeason |> 
-  calc_table_current() |> 
+```{r, message=FALSE}
+data_table_current <- example_thisSeason |> 
+  calc_table_current()
+
+data_table_current |> 
   print_table_current()
 ```
 
 We can now model the strengths of the sides at home and away.
 
 ```{r}
-results_filtered |> 
+data_model <- results_filtered |> 
   model_prepare_frame() |>
   model_run()
+
+data_model
 ```
 
 [I will add further details and more explanation in due course.]
+
+Next, we use these team strengths to model future games across the season.
+
+```{r}
+data_parameters_unplayed <- data_model |> 
+  model_extract_parameters()
+
+data_points_expected_remaining <- model_parameters_unplayed(
+  results = results_filtered,
+  model_parameters = data_parameters_unplayed
+  ) |> 
+  calc_points_expected_remaining()
+
+calc_points_expected_total(
+  table_current = data_table_current,
+  points_expected = data_points_expected_remaining
+  )
+```
+
+On this basis, Liverpool look like strong favourites to win the season (which they actually did). However, to project the likelihood of them doing so, we need to simulate many possible outcomes.
+
+[More to follow.]
