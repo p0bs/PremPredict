@@ -31,6 +31,7 @@ reference:
     Using the model to predict expected outcomes
 - contents:
   - calc_points_expected_remaining
+  - calc_points_expected_total
 
 - title: "Data"
   desc: >
