@@ -26,6 +26,12 @@ reference:
   - model_extract_parameters
   - model_parameters_unplayed
 
+- title: "Prediction"
+  desc: >
+    Using the model to predict expected outcomes
+- contents:
+  - calc_points_expected_remaining
+
 - title: "Data"
   desc: >
     Data used in the package
