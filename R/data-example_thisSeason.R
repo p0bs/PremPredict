@@ -1,4 +1,4 @@
-#' A dataset containing the results of the Premier League from this season so far (as at 2025-05-12).
+#' A dataset containing the results of the Premier League from this season so far (as committed on 2025-04-21).
 #'
 #' @format A data frame with many rows (one for each game this season) and 10 variables:
 #' \describe{
