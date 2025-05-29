@@ -101,21 +101,23 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">results_filtered</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 412</span></span>
+<span><span class="co">#&gt; Rows: 433</span></span>
 <span><span class="co">#&gt; Columns: 8</span></span>
-<span><span class="co">#&gt; $ matchday &lt;date&gt; 2024-04-27, 2024-04-27, 2024-04-27, 2024-04-27, 2024-04-28, …</span></span>
-<span><span class="co">#&gt; $ homeTeam &lt;chr&gt; "WHU", "FUL", "EVE", "AST", "BOU", "TOT", "NOT", "CHE", "ARS"…</span></span>
-<span><span class="co">#&gt; $ awayTeam &lt;chr&gt; "LIV", "CPA", "BRE", "CHE", "BRI", "ARS", "MCI", "TOT", "BOU"…</span></span>
-<span><span class="co">#&gt; $ FTHG     &lt;dbl&gt; 2, 1, 1, 2, 3, 2, 0, 2, 3, 0, 5, 1, 5, 4, 4, 0, 1, 1, 1, 2, 0…</span></span>
-<span><span class="co">#&gt; $ FTAG     &lt;dbl&gt; 2, 1, 0, 2, 0, 3, 2, 0, 0, 0, 1, 0, 0, 2, 0, 4, 2, 1, 3, 3, 1…</span></span>
-<span><span class="co">#&gt; $ FTR      &lt;chr&gt; "D", "D", "H", "D", "H", "A", "A", "H", "H", "D", "H", "H", "…</span></span>
+<span><span class="co">#&gt; $ matchday &lt;date&gt; 2024-04-06, 2024-04-06, 2024-04-07, 2024-04-07, 2024-04-13, …</span></span>
+<span><span class="co">#&gt; $ homeTeam &lt;chr&gt; "WOL", "BRI", "MUN", "TOT", "NEW", "NOT", "BOU", "LIV", "WHU"…</span></span>
+<span><span class="co">#&gt; $ awayTeam &lt;chr&gt; "WHU", "ARS", "LIV", "NOT", "TOT", "WOL", "MUN", "CPA", "FUL"…</span></span>
+<span><span class="co">#&gt; $ FTHG     &lt;dbl&gt; 1, 0, 2, 3, 4, 2, 2, 0, 0, 0, 6, 0, 2, 3, 5, 1, 5, 0, 2, 2, 0…</span></span>
+<span><span class="co">#&gt; $ FTAG     &lt;dbl&gt; 2, 3, 2, 1, 0, 2, 2, 1, 2, 2, 0, 2, 0, 1, 2, 3, 0, 1, 0, 0, 4…</span></span>
+<span><span class="co">#&gt; $ FTR      &lt;chr&gt; "A", "A", "D", "H", "H", "D", "D", "A", "A", "A", "H", "A", "…</span></span>
 <span><span class="co">#&gt; $ played   &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, T…</span></span>
-<span><span class="co">#&gt; $ match    &lt;chr&gt; "241", "242", "243", "244", "245", "246", "247", "248", "249"…</span></span></code></pre></div>
+<span><span class="co">#&gt; $ match    &lt;chr&gt; "220", "221", "222", "223", "224", "225", "226", "227", "228"…</span></span></code></pre></div>
 <p>The number of rows isn’t 380, as some games this season have yet to be played and some games from last year didn’t feature all of our teams from this season (as three teams were promoted from the Championship).</p>
 <p>For reference, we can see the prevailing table.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">example_thisSeason</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="reference/calc_table_current.html">calc_table_current</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">data_table_current</span> <span class="op">&lt;-</span> <span class="va">example_thisSeason</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/calc_table_current.html">calc_table_current</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_table_current</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/print_table_current.html">print_table_current</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -127,131 +129,133 @@
 <tbody>
 <tr class="odd">
 <td align="left">LIV</td>
-<td align="right">35</td>
-<td align="right">46</td>
-<td align="right">82</td>
+<td align="right">32</td>
+<td align="right">43</td>
+<td align="right">76</td>
 </tr>
 <tr class="even">
 <td align="left">ARS</td>
-<td align="right">35</td>
 <td align="right">33</td>
-<td align="right">67</td>
+<td align="right">34</td>
+<td align="right">66</td>
 </tr>
 <tr class="odd">
-<td align="left">MCI</td>
-<td align="right">35</td>
-<td align="right">24</td>
-<td align="right">64</td>
+<td align="left">NEW</td>
+<td align="right">33</td>
+<td align="right">18</td>
+<td align="right">59</td>
 </tr>
 <tr class="even">
-<td align="left">NEW</td>
-<td align="right">35</td>
-<td align="right">21</td>
-<td align="right">63</td>
+<td align="left">MCI</td>
+<td align="right">33</td>
+<td align="right">22</td>
+<td align="right">58</td>
 </tr>
 <tr class="odd">
 <td align="left">CHE</td>
-<td align="right">35</td>
-<td align="right">21</td>
-<td align="right">63</td>
+<td align="right">33</td>
+<td align="right">18</td>
+<td align="right">57</td>
 </tr>
 <tr class="even">
 <td align="left">NOT</td>
-<td align="right">34</td>
-<td align="right">12</td>
-<td align="right">60</td>
+<td align="right">32</td>
+<td align="right">13</td>
+<td align="right">57</td>
 </tr>
 <tr class="odd">
 <td align="left">AST</td>
-<td align="right">35</td>
+<td align="right">33</td>
 <td align="right">6</td>
-<td align="right">60</td>
+<td align="right">57</td>
 </tr>
 <tr class="even">
 <td align="left">BOU</td>
-<td align="right">35</td>
-<td align="right">13</td>
-<td align="right">53</td>
-</tr>
-<tr class="odd">
-<td align="left">BRE</td>
-<td align="right">35</td>
-<td align="right">9</td>
-<td align="right">52</td>
-</tr>
-<tr class="even">
-<td align="left">BRI</td>
-<td align="right">35</td>
-<td align="right">1</td>
-<td align="right">52</td>
+<td align="right">33</td>
+<td align="right">12</td>
+<td align="right">49</td>
 </tr>
 <tr class="odd">
 <td align="left">FUL</td>
-<td align="right">35</td>
+<td align="right">33</td>
 <td align="right">3</td>
-<td align="right">51</td>
+<td align="right">48</td>
+</tr>
+<tr class="even">
+<td align="left">BRI</td>
+<td align="right">33</td>
+<td align="right">0</td>
+<td align="right">48</td>
+</tr>
+<tr class="odd">
+<td align="left">BRE</td>
+<td align="right">33</td>
+<td align="right">6</td>
+<td align="right">46</td>
 </tr>
 <tr class="even">
 <td align="left">CPA</td>
-<td align="right">34</td>
+<td align="right">33</td>
 <td align="right">-4</td>
-<td align="right">45</td>
+<td align="right">44</td>
 </tr>
 <tr class="odd">
-<td align="left">WOL</td>
-<td align="right">35</td>
-<td align="right">-11</td>
-<td align="right">41</td>
-</tr>
-<tr class="even">
 <td align="left">EVE</td>
-<td align="right">35</td>
-<td align="right">-7</td>
-<td align="right">39</td>
-</tr>
-<tr class="odd">
-<td align="left">MUN</td>
-<td align="right">35</td>
-<td align="right">-9</td>
-<td align="right">39</td>
+<td align="right">33</td>
+<td align="right">-6</td>
+<td align="right">38</td>
 </tr>
 <tr class="even">
-<td align="left">TOT</td>
-<td align="right">35</td>
-<td align="right">6</td>
+<td align="left">MUN</td>
+<td align="right">33</td>
+<td align="right">-8</td>
 <td align="right">38</td>
 </tr>
 <tr class="odd">
-<td align="left">WHU</td>
-<td align="right">35</td>
-<td align="right">-19</td>
+<td align="left">WOL</td>
+<td align="right">33</td>
+<td align="right">-13</td>
+<td align="right">38</td>
+</tr>
+<tr class="even">
+<td align="left">TOT</td>
+<td align="right">32</td>
+<td align="right">11</td>
 <td align="right">37</td>
+</tr>
+<tr class="odd">
+<td align="left">WHU</td>
+<td align="right">33</td>
+<td align="right">-18</td>
+<td align="right">36</td>
 </tr>
 <tr class="even">
 <td align="left">IPS</td>
-<td align="right">35</td>
-<td align="right">-41</td>
-<td align="right">22</td>
+<td align="right">33</td>
+<td align="right">-38</td>
+<td align="right">21</td>
 </tr>
 <tr class="odd">
 <td align="left">LEI</td>
-<td align="right">35</td>
-<td align="right">-47</td>
-<td align="right">21</td>
+<td align="right">32</td>
+<td align="right">-45</td>
+<td align="right">18</td>
 </tr>
 <tr class="even">
 <td align="left">SOU</td>
-<td align="right">35</td>
-<td align="right">-57</td>
+<td align="right">33</td>
+<td align="right">-54</td>
 <td align="right">11</td>
 </tr>
 </tbody>
 </table>
 <p>We can now model the strengths of the sides at home and away.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">results_filtered</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">data_model</span> <span class="op">&lt;-</span> <span class="va">results_filtered</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/model_prepare_frame.html">model_prepare_frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/model_run.html">model_run</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Call:</span></span>
 <span><span class="co">#&gt; gnm::gnm(formula = count ~ -1 + s + draw, eliminate = match, </span></span>
@@ -260,22 +264,62 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Coefficients of interest:</span></span>
 <span><span class="co">#&gt; sARS_home  sAST_home  sBOU_home  sBRE_home  sBRI_home  sCHE_home  sCPA_home  </span></span>
-<span><span class="co">#&gt;    1.7940     1.7286     0.7238     0.8993     0.6519     2.1646     0.4254  </span></span>
+<span><span class="co">#&gt;   2.11616    1.80472    0.83416    0.91304    0.54456    2.10914    0.91035  </span></span>
 <span><span class="co">#&gt; sEVE_home  sFUL_home  sIPS_home  sLEI_home  sLIV_home  sMCI_home  sMUN_home  </span></span>
-<span><span class="co">#&gt;    0.3589     0.5613    -2.5243    -1.1832     3.1778     2.1444     0.3606  </span></span>
+<span><span class="co">#&gt;   0.95829    0.62203   -2.27916   -1.22314    2.77280    2.07414    0.50124  </span></span>
 <span><span class="co">#&gt; sNEW_home  sNOT_home  sSOU_home  sTOT_home  sWHU_home  sWOL_home  sARS_away  </span></span>
-<span><span class="co">#&gt;    1.6629     1.0210    -3.2596    -0.0165    -0.1080    -0.1318     1.7118  </span></span>
+<span><span class="co">#&gt;   1.78552    1.27272   -2.91937    0.48145    0.01834   -0.42682    1.99077  </span></span>
 <span><span class="co">#&gt; sAST_away  sBOU_away  sBRE_away  sBRI_away  sCHE_away  sCPA_away  sEVE_away  </span></span>
-<span><span class="co">#&gt;    0.2306     0.7772     0.5660     0.5618     1.0614     0.7559    -0.2114  </span></span>
+<span><span class="co">#&gt;   0.72014    0.68944    0.51242    0.70031    1.08462    1.07638   -0.09467  </span></span>
 <span><span class="co">#&gt; sFUL_away  sIPS_away  sLEI_away  sLIV_away  sMCI_away  sMUN_away  sNEW_away  </span></span>
-<span><span class="co">#&gt;    0.6532    -0.3817    -1.7925     1.8694     1.3556    -0.1576     0.9152  </span></span>
+<span><span class="co">#&gt;   0.97085   -0.18998   -1.37943    1.87401    1.59837    0.10322    0.93390  </span></span>
 <span><span class="co">#&gt; sNOT_away  sSOU_away  sTOT_away  sWHU_away  sWOL_away       draw  </span></span>
-<span><span class="co">#&gt;    1.4112    -2.6533    -0.4861    -0.1094     0.1514         NA  </span></span>
+<span><span class="co">#&gt;   0.94902   -2.17842   -0.40044    0.21730    0.34709         NA  </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Deviance:            689.4529 </span></span>
-<span><span class="co">#&gt; Pearson chi-squared: 768.8105 </span></span>
+<span><span class="co">#&gt; Deviance:            698.4004 </span></span>
+<span><span class="co">#&gt; Pearson chi-squared: 763.8907 </span></span>
 <span><span class="co">#&gt; Residual df:         722</span></span></code></pre></div>
 <p>[I will add further details and more explanation in due course.]</p>
+<p>Next, we use these team strengths to model future games across the season.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data_parameters_unplayed</span> <span class="op">&lt;-</span> <span class="va">data_model</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/model_extract_parameters.html">model_extract_parameters</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_points_expected_remaining</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/model_parameters_unplayed.html">model_parameters_unplayed</a></span><span class="op">(</span></span>
+<span>  results <span class="op">=</span> <span class="va">results_filtered</span>,</span>
+<span>  model_parameters <span class="op">=</span> <span class="va">data_parameters_unplayed</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/calc_points_expected_remaining.html">calc_points_expected_remaining</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/calc_points_expected_total.html">calc_points_expected_total</a></span><span class="op">(</span></span>
+<span>  table_current <span class="op">=</span> <span class="va">data_table_current</span>,</span>
+<span>  points_expected <span class="op">=</span> <span class="va">data_points_expected_remaining</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 20 × 2</span></span>
+<span><span class="co">#&gt;    midName        Exp_Points_Ave</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Liverpool                88.7</span></span>
+<span><span class="co">#&gt;  2 Arsenal                  75.9</span></span>
+<span><span class="co">#&gt;  3 Man City                 69.1</span></span>
+<span><span class="co">#&gt;  4 Newcastle                67.7</span></span>
+<span><span class="co">#&gt;  5 Notts Forest             67.5</span></span>
+<span><span class="co">#&gt;  6 Chelsea                  65.5</span></span>
+<span><span class="co">#&gt;  7 Aston Villa              64.7</span></span>
+<span><span class="co">#&gt;  8 Bournemouth              55.8</span></span>
+<span><span class="co">#&gt;  9 Fulham                   55.5</span></span>
+<span><span class="co">#&gt; 10 Brighton                 54.7</span></span>
+<span><span class="co">#&gt; 11 Brentford                54.3</span></span>
+<span><span class="co">#&gt; 12 Crystal Palace           50.1</span></span>
+<span><span class="co">#&gt; 13 Everton                  44.4</span></span>
+<span><span class="co">#&gt; 14 Man Utd                  43.1</span></span>
+<span><span class="co">#&gt; 15 West Ham                 43.1</span></span>
+<span><span class="co">#&gt; 16 Wolves                   43.1</span></span>
+<span><span class="co">#&gt; 17 Tottenham                42.2</span></span>
+<span><span class="co">#&gt; 18 Ipswich                  24.9</span></span>
+<span><span class="co">#&gt; 19 Leicester                22.5</span></span>
+<span><span class="co">#&gt; 20 Southampton              12.7</span></span></code></pre></div>
+<p>On this basis, Liverpool look like strong favourites to win the season (which they actually did). However, to project the likelihood of them doing so, we need to simulate many possible outcomes.</p>
+<p>[More to follow.]</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
