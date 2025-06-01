@@ -28,12 +28,12 @@ simulate_outcomes <- function(data_standings_simulations, value_number_sims){
         )
       ) |>
     dplyr::mutate(likelihood = .data$freq / value_number_sims) |>
-    dplyr::select(-.data$freq) |>
+    dplyr::select(-"freq") |>
     tidyr::pivot_wider(
-      id_cols = .data$midName,
-      names_from = .data$ranking,
+      id_cols = "midName",
+      names_from = "ranking",
       names_prefix = "p",
-      values_from = .data$likelihood
+      values_from = "likelihood"
       ) |>
     dplyr::mutate(
       champion = .data$p1,
@@ -43,7 +43,7 @@ simulate_outcomes <- function(data_standings_simulations, value_number_sims){
       top_half = .data$top_six + .data$p7 + .data$p8 + .data$p9 + .data$p10,
       relegation = .data$p18 + .data$p19 + .data$p20
     ) |>
-    dplyr::select(.data$midName, .data$champion, .data$top_four, .data$top_five, .data$top_six, .data$top_half, .data$relegation) |>
+    dplyr::select("midName", "champion", "top_four", "top_five", "top_six", "top_half", "relegation") |>
     dplyr::arrange(dplyr::desc(.data$champion), dplyr::desc(.data$top_six))
 
   }
