@@ -33,6 +33,14 @@ reference:
   - calc_points_expected_remaining
   - calc_points_expected_total
 
+- title: "Simulation"
+  desc: >
+    This is nothing to do with diving! In this section, we simulate many games in order to understand the likelihood of given league outcomes arising
+- contents:
+  - simulate_games
+  - simulate_standings
+  - simulate_outcomes
+
 - title: "Data"
   desc: >
     Data used in the package

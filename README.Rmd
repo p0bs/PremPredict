@@ -51,7 +51,7 @@ The predictions are based on a team's strength, given its performance in recent 
 
 ## Example
 
-Here is an example analysis, using data collected on 12th May 2025 (which wasn't quite up to date by then).
+Here is an example analysis, using data collected towards the end of the 2024/25 season.
 
 First, we collect, combine and tidy the results data.
 
@@ -107,18 +107,42 @@ Next, we use these team strengths to model future games across the season.
 data_parameters_unplayed <- data_model |> 
   model_extract_parameters()
 
-data_points_expected_remaining <- model_parameters_unplayed(
+data_model_parameters_unplayed <- model_parameters_unplayed(
   results = results_filtered,
   model_parameters = data_parameters_unplayed
-  ) |> 
+  )
+
+data_points_expected_remaining <- data_model_parameters_unplayed |>  
   calc_points_expected_remaining()
 
 calc_points_expected_total(
   table_current = data_table_current,
   points_expected = data_points_expected_remaining
-  )
+  ) |> 
+  knitr::kable()
 ```
 
-On this basis, Liverpool look like strong favourites to win the season (which they actually did). However, to project the likelihood of them doing so, we need to simulate many possible outcomes.
+On this basis, Liverpool look like strong favourites to win the season (which they went on to do). 
 
-[More to follow.]
+In order to project the likelihood of them becoming champions, however, we need to simulate many possible outcomes.
+
+```{r}
+number_simulations <- 50000
+
+data_simulate_games <- simulate_games(
+  data_model_parameters_unplayed = data_model_parameters_unplayed,
+  value_number_sims = number_simulations,
+  value_seed = 2602L
+  )
+
+data_simulate_standings <- simulate_standings(
+  data_game_simulations = data_simulate_games,
+  data_table_latest = data_table_current
+  )
+
+simulate_outcomes(
+  data_standings_simulations = data_simulate_standings,
+  value_number_sims = number_simulations
+  ) |> 
+  knitr::kable()
+```

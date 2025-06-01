@@ -55,8 +55,8 @@ signify certainty in their specific assessment, as:
 
 ## Example
 
-Here is an example analysis, using data collected on 12th May 2025
-(which wasn’t quite up to date by then).
+Here is an example analysis, using data collected towards the end of the
+2024/25 season.
 
 First, we collect, combine and tidy the results data.
 
@@ -174,43 +174,90 @@ season.
 data_parameters_unplayed <- data_model |> 
   model_extract_parameters()
 
-data_points_expected_remaining <- model_parameters_unplayed(
+data_model_parameters_unplayed <- model_parameters_unplayed(
   results = results_filtered,
   model_parameters = data_parameters_unplayed
-  ) |> 
+  )
+
+data_points_expected_remaining <- data_model_parameters_unplayed |>  
   calc_points_expected_remaining()
 
 calc_points_expected_total(
   table_current = data_table_current,
   points_expected = data_points_expected_remaining
-  )
-#> # A tibble: 20 × 2
-#>    midName        Exp_Points_Ave
-#>    <chr>                   <dbl>
-#>  1 Liverpool                88.7
-#>  2 Arsenal                  75.9
-#>  3 Man City                 69.1
-#>  4 Newcastle                67.7
-#>  5 Notts Forest             67.5
-#>  6 Chelsea                  65.5
-#>  7 Aston Villa              64.7
-#>  8 Bournemouth              55.8
-#>  9 Fulham                   55.5
-#> 10 Brighton                 54.7
-#> 11 Brentford                54.3
-#> 12 Crystal Palace           50.1
-#> 13 Everton                  44.4
-#> 14 Man Utd                  43.1
-#> 15 West Ham                 43.1
-#> 16 Wolves                   43.1
-#> 17 Tottenham                42.2
-#> 18 Ipswich                  24.9
-#> 19 Leicester                22.5
-#> 20 Southampton              12.7
+  ) |> 
+  knitr::kable()
 ```
 
-On this basis, Liverpool look like strong favourites to win the season
-(which they actually did). However, to project the likelihood of them
-doing so, we need to simulate many possible outcomes.
+| midName        | Exp_Points_Ave |
+|:---------------|---------------:|
+| Liverpool      |       88.74337 |
+| Arsenal        |       75.88810 |
+| Man City       |       69.11474 |
+| Newcastle      |       67.69552 |
+| Notts Forest   |       67.52439 |
+| Chelsea        |       65.54868 |
+| Aston Villa    |       64.68776 |
+| Bournemouth    |       55.78469 |
+| Fulham         |       55.52520 |
+| Brighton       |       54.74692 |
+| Brentford      |       54.26864 |
+| Crystal Palace |       50.06070 |
+| Everton        |       44.36559 |
+| Man Utd        |       43.13457 |
+| West Ham       |       43.09143 |
+| Wolves         |       43.05042 |
+| Tottenham      |       42.18067 |
+| Ipswich        |       24.87862 |
+| Leicester      |       22.50480 |
+| Southampton    |       12.66985 |
 
-\[More to follow.\]
+On this basis, Liverpool look like strong favourites to win the season
+(which they went on to do).
+
+In order to project the likelihood of them becoming champions, however,
+we need to simulate many possible outcomes.
+
+``` r
+number_simulations <- 50000
+
+data_simulate_games <- simulate_games(
+  data_model_parameters_unplayed = data_model_parameters_unplayed,
+  value_number_sims = number_simulations,
+  value_seed = 2602L
+  )
+
+data_simulate_standings <- simulate_standings(
+  data_game_simulations = data_simulate_games,
+  data_table_latest = data_table_current
+  )
+
+simulate_outcomes(
+  data_standings_simulations = data_simulate_standings,
+  value_number_sims = number_simulations
+  ) |> 
+  knitr::kable()
+```
+
+| midName        | champion | top_four | top_five | top_six | top_half | relegation |
+|:---------------|---------:|---------:|---------:|--------:|---------:|-----------:|
+| Liverpool      |  0.99946 |  1.00000 |  1.00000 | 1.00000 |  1.00000 |          0 |
+| Arsenal        |  0.00054 |  0.99896 |  0.99988 | 0.99998 |  1.00000 |          0 |
+| Man City       |  0.00000 |  0.76812 |  0.90642 | 0.97190 |  1.00000 |          0 |
+| Newcastle      |  0.00000 |  0.48344 |  0.73910 | 0.91198 |  1.00000 |          0 |
+| Notts Forest   |  0.00000 |  0.41786 |  0.67196 | 0.86860 |  1.00000 |          0 |
+| Chelsea        |  0.00000 |  0.23658 |  0.45472 | 0.73708 |  1.00000 |          0 |
+| Aston Villa    |  0.00000 |  0.09504 |  0.22778 | 0.50796 |  0.99998 |          0 |
+| Bournemouth    |  0.00000 |  0.00000 |  0.00008 | 0.00136 |  0.86790 |          0 |
+| Fulham         |  0.00000 |  0.00000 |  0.00006 | 0.00096 |  0.77266 |          0 |
+| Brighton       |  0.00000 |  0.00000 |  0.00000 | 0.00016 |  0.64632 |          0 |
+| Brentford      |  0.00000 |  0.00000 |  0.00000 | 0.00002 |  0.63896 |          0 |
+| Crystal Palace |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.07322 |          0 |
+| Everton        |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00028 |          0 |
+| Tottenham      |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00026 |          0 |
+| Man Utd        |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00018 |          0 |
+| Wolves         |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00018 |          0 |
+| West Ham       |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00006 |          0 |
+| Ipswich        |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
+| Leicester      |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
+| Southampton    |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
