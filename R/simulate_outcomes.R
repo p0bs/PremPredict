@@ -44,6 +44,6 @@ simulate_outcomes <- function(data_standings_simulations, value_number_sims){
       relegation = .data$p18 + .data$p19 + .data$p20
     ) |>
     dplyr::select("midName", "champion", "top_four", "top_five", "top_six", "top_half", "relegation") |>
-    dplyr::arrange(dplyr::desc(.data$champion), dplyr::desc(.data$top_six))
+    dplyr::arrange(dplyr::desc(.data$champion), dplyr::desc(.data$top_six), dplyr::desc(.data$top_half), .data$relegation)
 
   }
