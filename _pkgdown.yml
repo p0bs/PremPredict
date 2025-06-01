@@ -38,6 +38,7 @@ reference:
     This is nothing to do with diving! In this section, we simulate many games in order to understand the likelihood of given league outcomes arising
 - contents:
   - simulate_games
+  - simulate_standings
 
 - title: "Data"
   desc: >
