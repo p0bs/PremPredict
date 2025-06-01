@@ -1,7 +1,7 @@
 Package: PremPredict
 Type: Package
 Title: Predict the Premier League
-Version: 0.3.0.9000
+Version: 0.4.0
 Authors@R:
     person(given = "Robin",
            family = "Penfold",
