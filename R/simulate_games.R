@@ -31,8 +31,9 @@ simulate_games <- function(data_model_parameters_unplayed, value_number_sims = 5
       result_home = .data$random <= .data$prob_home,
       result_draw = (.data$random > .data$prob_home) & (.data$random <= (.data$prob_home + .data$prob_draw)),
       result_away = .data$random > (.data$prob_home + .data$prob_draw),
-      points_home = (3 * result_home) + result_draw,
-      points_away = (3 * result_away) + result_draw
-    )
+      points_home = (3 * .data$result_home) + .data$result_draw,
+      points_away = (3 * .data$result_away) + .data$result_draw
+    ) |>
+    dplyr::select(-"result_home", -"result_draw", -"result_away")
 
   }
