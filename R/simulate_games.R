@@ -28,22 +28,16 @@ simulate_games <- function(data_model_parameters_unplayed, value_number_sims = 5
     dplyr::mutate(random = stats::runif(n = 1)) |>
     dplyr::ungroup() |>
     dplyr::mutate(
-      result = dplyr::case_when(
-        .data$random <= .data$prob_home ~ 1L,
-        (.data$random > .data$prob_home) & (.data$random <= (.data$prob_home + .data$prob_draw)) ~ 0L,
-        .data$random > (.data$prob_home + .data$prob_draw) ~ -1L,
-        .default = NA_integer_
-      ),
       points_home = dplyr::case_when(
-        .data$result == 1L ~ 3L,
-        .data$result == 0L ~ 1L,
-        .data$result == -1L ~ 0L,
+        .data$random <= .data$prob_home ~ 3L,
+        (.data$random > .data$prob_home) & (.data$random <= (.data$prob_home + .data$prob_draw)) ~ 1L,
+        .data$random > (.data$prob_home + .data$prob_draw) ~ 0L,
         .default = NA_integer_
       ),
       points_away = dplyr::case_when(
-        .data$result == 1L ~ 0L,
-        .data$result == 0L ~ 1L,
-        .data$result == -1L ~ 3L,
+        .data$points_home == 3L ~ 0L,
+        .data$points_home == 1L ~ 1L,
+        .data$points_home == 0L ~ 3L,
         .default = NA_integer_
       )
     )

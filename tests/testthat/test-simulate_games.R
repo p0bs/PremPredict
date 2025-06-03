@@ -33,7 +33,7 @@ data_test <- simulate_games(
 test_that("dimensionally correct", {
   expect_equal(
     ncol(data_test),
-    11L
+    10L
   )
   expect_equal(
     nrow(data_test),
