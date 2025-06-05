@@ -131,7 +131,7 @@ On this basis, Liverpool look like strong favourites to win the season (which th
 In order to project the likelihood of them becoming champions, however, we need to simulate many possible outcomes.
 
 ```{r}
-number_simulations <- 50000
+number_simulations <- 100000
 
 data_simulate_games <- simulate_games(
   data_model_parameters_unplayed = data_model_parameters_unplayed,
