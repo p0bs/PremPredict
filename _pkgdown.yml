@@ -48,3 +48,9 @@ reference:
   - teams
   - previous_seasons
   - example_thisSeason
+
+- title: "Internals"
+  desc: >
+    Functions used within the package but not exported
+  contents:
+  - calc_points_simulated_match
