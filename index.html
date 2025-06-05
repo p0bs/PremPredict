@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">PremPredict</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,31 +87,35 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/p0bs/PremPredict" class="external-link">PremPredict</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"example_thisSeason"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">results_combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_results.html">get_results</a></span><span class="op">(</span><span class="va">example_thisSeason</span>, seasons <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span><span class="va">results_combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_results.html">get_results</a></span><span class="op">(</span></span>
+<span>  results_thisSeason <span class="op">=</span> <span class="va">example_thisSeason</span>, </span>
+<span>  seasons <span class="op">=</span> <span class="fl">1L</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">results_combined</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 652   9</span></span></code></pre></div>
-<p>However, we only wish to look back a full year from the current point (which is where each team has a small number of games remaining in the season).</p>
+<p>Note that we want to look back across this season (so far) and last.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">game_latest</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_game_latest.html">calc_game_latest</a></span><span class="op">(</span>results <span class="op">=</span> <span class="va">results_combined</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">results_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_results_filtered.html">get_results_filtered</a></span><span class="op">(</span></span>
 <span>  results <span class="op">=</span> <span class="va">results_combined</span>, </span>
 <span>  index_game_latest <span class="op">=</span> <span class="va">game_latest</span>, </span>
-<span>  lookback_rounds <span class="op">=</span> <span class="fl">38L</span></span>
+<span>  lookback_rounds <span class="op">=</span> <span class="fl">76L</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">results_filtered</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 433</span></span>
+<span><span class="co">#&gt; Rows: 652</span></span>
 <span><span class="co">#&gt; Columns: 8</span></span>
-<span><span class="co">#&gt; $ matchday &lt;date&gt; 2024-04-06, 2024-04-06, 2024-04-07, 2024-04-07, 2024-04-13, …</span></span>
-<span><span class="co">#&gt; $ homeTeam &lt;chr&gt; "WOL", "BRI", "MUN", "TOT", "NEW", "NOT", "BOU", "LIV", "WHU"…</span></span>
-<span><span class="co">#&gt; $ awayTeam &lt;chr&gt; "WHU", "ARS", "LIV", "NOT", "TOT", "WOL", "MUN", "CPA", "FUL"…</span></span>
-<span><span class="co">#&gt; $ FTHG     &lt;dbl&gt; 1, 0, 2, 3, 4, 2, 2, 0, 0, 0, 6, 0, 2, 3, 5, 1, 5, 0, 2, 2, 0…</span></span>
-<span><span class="co">#&gt; $ FTAG     &lt;dbl&gt; 2, 3, 2, 1, 0, 2, 2, 1, 2, 2, 0, 2, 0, 1, 2, 3, 0, 1, 0, 0, 4…</span></span>
-<span><span class="co">#&gt; $ FTR      &lt;chr&gt; "A", "A", "D", "H", "H", "D", "D", "A", "A", "A", "H", "A", "…</span></span>
+<span><span class="co">#&gt; $ matchday &lt;date&gt; 2023-08-12, 2023-08-12, 2023-08-12, 2023-08-12, 2023-08-13, …</span></span>
+<span><span class="co">#&gt; $ homeTeam &lt;chr&gt; "ARS", "BOU", "EVE", "NEW", "BRE", "CHE", "MUN", "FUL", "LIV"…</span></span>
+<span><span class="co">#&gt; $ awayTeam &lt;chr&gt; "NOT", "WHU", "FUL", "AST", "TOT", "LIV", "WOL", "BRE", "BOU"…</span></span>
+<span><span class="co">#&gt; $ FTHG     &lt;dbl&gt; 2, 1, 0, 5, 2, 1, 1, 0, 3, 1, 2, 1, 4, 3, 0, 0, 0, 3, 2, 1, 1…</span></span>
+<span><span class="co">#&gt; $ FTAG     &lt;dbl&gt; 1, 1, 1, 1, 2, 1, 0, 3, 1, 4, 0, 0, 0, 1, 1, 2, 1, 2, 2, 1, 3…</span></span>
+<span><span class="co">#&gt; $ FTR      &lt;chr&gt; "H", "D", "A", "H", "D", "D", "H", "A", "H", "A", "H", "H", "…</span></span>
 <span><span class="co">#&gt; $ played   &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, T…</span></span>
-<span><span class="co">#&gt; $ match    &lt;chr&gt; "220", "221", "222", "223", "224", "225", "226", "227", "228"…</span></span></code></pre></div>
-<p>The number of rows isn’t 380, as some games this season have yet to be played and some games from last year didn’t feature all of our teams from this season (as three teams were promoted from the Championship).</p>
+<span><span class="co">#&gt; $ match    &lt;chr&gt; "001", "002", "003", "004", "005", "006", "007", "008", "009"…</span></span></code></pre></div>
+<p>The number of rows isn’t 760, as some games this season have yet to be played and some games from last year didn’t feature all of our teams from this season (as three teams were promoted from the Championship).</p>
 <p>For reference, we can see the prevailing table.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_table_current</span> <span class="op">&lt;-</span> <span class="va">example_thisSeason</span> <span class="op">|&gt;</span> </span>
@@ -264,21 +268,21 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Coefficients of interest:</span></span>
 <span><span class="co">#&gt; sARS_home  sAST_home  sBOU_home  sBRE_home  sBRI_home  sCHE_home  sCPA_home  </span></span>
-<span><span class="co">#&gt;   2.11616    1.80472    0.83416    0.91304    0.54456    2.10914    0.91035  </span></span>
+<span><span class="co">#&gt;   2.49717    2.03650    0.82635    0.54145    1.10363    1.80490    0.58710  </span></span>
 <span><span class="co">#&gt; sEVE_home  sFUL_home  sIPS_home  sLEI_home  sLIV_home  sMCI_home  sMUN_home  </span></span>
-<span><span class="co">#&gt;   0.95829    0.62203   -2.27916   -1.22314    2.77280    2.07414    0.50124  </span></span>
+<span><span class="co">#&gt;   0.68189    0.96641   -2.10476   -1.10237    3.04903    2.35849    0.88298  </span></span>
 <span><span class="co">#&gt; sNEW_home  sNOT_home  sSOU_home  sTOT_home  sWHU_home  sWOL_home  sARS_away  </span></span>
-<span><span class="co">#&gt;   1.78552    1.27272   -2.91937    0.48145    0.01834   -0.42682    1.99077  </span></span>
+<span><span class="co">#&gt;   2.05827    0.95438   -2.70490    1.22332    0.54540    0.28027    2.13189  </span></span>
 <span><span class="co">#&gt; sAST_away  sBOU_away  sBRE_away  sBRI_away  sCHE_away  sCPA_away  sEVE_away  </span></span>
-<span><span class="co">#&gt;   0.72014    0.68944    0.51242    0.70031    1.08462    1.07638   -0.09467  </span></span>
+<span><span class="co">#&gt;   0.90864    0.72265    0.47399    0.60825    0.96459    0.66492    0.35664  </span></span>
 <span><span class="co">#&gt; sFUL_away  sIPS_away  sLEI_away  sLIV_away  sMCI_away  sMUN_away  sNEW_away  </span></span>
-<span><span class="co">#&gt;   0.97085   -0.18998   -1.37943    1.87401    1.59837    0.10322    0.93390  </span></span>
+<span><span class="co">#&gt;   0.61757    0.02546   -1.16851    2.12468    1.97180    0.54222    0.74619  </span></span>
 <span><span class="co">#&gt; sNOT_away  sSOU_away  sTOT_away  sWHU_away  sWOL_away       draw  </span></span>
-<span><span class="co">#&gt;   0.94902   -2.17842   -0.40044    0.21730    0.34709         NA  </span></span>
+<span><span class="co">#&gt;   0.56485   -1.89532    0.37914    0.51793    0.68725         NA  </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Deviance:            698.4004 </span></span>
-<span><span class="co">#&gt; Pearson chi-squared: 763.8907 </span></span>
-<span><span class="co">#&gt; Residual df:         722</span></span></code></pre></div>
+<span><span class="co">#&gt; Deviance:            1131.798 </span></span>
+<span><span class="co">#&gt; Pearson chi-squared: 1206.453 </span></span>
+<span><span class="co">#&gt; Residual df:         1160</span></span></code></pre></div>
 <p>[I will add further details and more explanation in due course.]</p>
 <p>Next, we use these team strengths to model future games across the season.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -306,90 +310,90 @@
 <tbody>
 <tr class="odd">
 <td align="left">Liverpool</td>
-<td align="right">88.74337</td>
+<td align="right">89.23420</td>
 </tr>
 <tr class="even">
 <td align="left">Arsenal</td>
-<td align="right">75.88810</td>
+<td align="right">76.58606</td>
 </tr>
 <tr class="odd">
 <td align="left">Man City</td>
-<td align="right">69.11474</td>
+<td align="right">69.37374</td>
 </tr>
 <tr class="even">
 <td align="left">Newcastle</td>
-<td align="right">67.69552</td>
+<td align="right">67.28586</td>
 </tr>
 <tr class="odd">
 <td align="left">Notts Forest</td>
-<td align="right">67.52439</td>
+<td align="right">65.97324</td>
 </tr>
 <tr class="even">
-<td align="left">Chelsea</td>
-<td align="right">65.54868</td>
+<td align="left">Aston Villa</td>
+<td align="right">64.78610</td>
 </tr>
 <tr class="odd">
-<td align="left">Aston Villa</td>
-<td align="right">64.68776</td>
+<td align="left">Chelsea</td>
+<td align="right">64.55257</td>
 </tr>
 <tr class="even">
 <td align="left">Bournemouth</td>
-<td align="right">55.78469</td>
+<td align="right">55.16355</td>
 </tr>
 <tr class="odd">
 <td align="left">Fulham</td>
-<td align="right">55.52520</td>
+<td align="right">55.09613</td>
 </tr>
 <tr class="even">
 <td align="left">Brighton</td>
-<td align="right">54.74692</td>
+<td align="right">54.63824</td>
 </tr>
 <tr class="odd">
 <td align="left">Brentford</td>
-<td align="right">54.26864</td>
+<td align="right">53.55882</td>
 </tr>
 <tr class="even">
 <td align="left">Crystal Palace</td>
-<td align="right">50.06070</td>
+<td align="right">48.59985</td>
 </tr>
 <tr class="odd">
-<td align="left">Everton</td>
-<td align="right">44.36559</td>
-</tr>
-<tr class="even">
-<td align="left">Man Utd</td>
-<td align="right">43.13457</td>
-</tr>
-<tr class="odd">
-<td align="left">West Ham</td>
-<td align="right">43.09143</td>
-</tr>
-<tr class="even">
 <td align="left">Wolves</td>
-<td align="right">43.05042</td>
+<td align="right">44.38796</td>
+</tr>
+<tr class="even">
+<td align="left">Everton</td>
+<td align="right">44.31846</td>
 </tr>
 <tr class="odd">
 <td align="left">Tottenham</td>
-<td align="right">42.18067</td>
+<td align="right">44.23399</td>
+</tr>
+<tr class="even">
+<td align="left">Man Utd</td>
+<td align="right">44.20111</td>
+</tr>
+<tr class="odd">
+<td align="left">West Ham</td>
+<td align="right">43.35263</td>
 </tr>
 <tr class="even">
 <td align="left">Ipswich</td>
-<td align="right">24.87862</td>
+<td align="right">25.13070</td>
 </tr>
 <tr class="odd">
 <td align="left">Leicester</td>
-<td align="right">22.50480</td>
+<td align="right">22.37946</td>
 </tr>
 <tr class="even">
 <td align="left">Southampton</td>
-<td align="right">12.66985</td>
+<td align="right">12.88449</td>
 </tr>
 </tbody>
 </table>
 <p>On this basis, Liverpool look like strong favourites to win the season (which they went on to do).</p>
 <p>In order to project the likelihood of them becoming champions, however, we need to simulate many possible outcomes.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">number_simulations</span> <span class="op">&lt;-</span> <span class="fl">50000</span></span>
+<code class="sourceCode R"><span><span class="va">number_simulations</span> <span class="op">&lt;-</span> <span class="fl">100000</span></span>
 <span></span>
 <span><span class="va">data_simulate_games</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simulate_games.html">simulate_games</a></span><span class="op">(</span></span>
 <span>  data_model_parameters_unplayed <span class="op">=</span> <span class="va">data_model_parameters_unplayed</span>,</span>
@@ -429,7 +433,7 @@
 <tbody>
 <tr class="odd">
 <td align="left">Liverpool</td>
-<td align="right">0.99946</td>
+<td align="right">1</td>
 <td align="right">1.00000</td>
 <td align="right">1.00000</td>
 <td align="right">1.00000</td>
@@ -438,151 +442,151 @@
 </tr>
 <tr class="even">
 <td align="left">Arsenal</td>
-<td align="right">0.00054</td>
-<td align="right">0.99896</td>
-<td align="right">0.99988</td>
-<td align="right">0.99998</td>
+<td align="right">0</td>
+<td align="right">1.00000</td>
+<td align="right">1.00000</td>
+<td align="right">1.00000</td>
 <td align="right">1.00000</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">Man City</td>
-<td align="right">0.00000</td>
-<td align="right">0.76812</td>
-<td align="right">0.90642</td>
-<td align="right">0.97190</td>
+<td align="right">0</td>
+<td align="right">0.84513</td>
+<td align="right">0.87164</td>
+<td align="right">1.00000</td>
 <td align="right">1.00000</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">Newcastle</td>
-<td align="right">0.00000</td>
-<td align="right">0.48344</td>
-<td align="right">0.73910</td>
-<td align="right">0.91198</td>
+<td align="right">0</td>
+<td align="right">0.72136</td>
+<td align="right">0.89928</td>
+<td align="right">0.97331</td>
 <td align="right">1.00000</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">Notts Forest</td>
-<td align="right">0.00000</td>
-<td align="right">0.41786</td>
-<td align="right">0.67196</td>
-<td align="right">0.86860</td>
+<td align="right">0</td>
+<td align="right">0.29474</td>
+<td align="right">0.50437</td>
+<td align="right">0.95472</td>
 <td align="right">1.00000</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">Chelsea</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
-<td align="right">0.23658</td>
-<td align="right">0.45472</td>
-<td align="right">0.73708</td>
+<td align="right">0.44208</td>
+<td align="right">0.57944</td>
 <td align="right">1.00000</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">Aston Villa</td>
-<td align="right">0.00000</td>
-<td align="right">0.09504</td>
-<td align="right">0.22778</td>
-<td align="right">0.50796</td>
-<td align="right">0.99998</td>
+<td align="right">0</td>
+<td align="right">0.13877</td>
+<td align="right">0.28263</td>
+<td align="right">0.49253</td>
+<td align="right">1.00000</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="left">Bournemouth</td>
+<td align="left">Fulham</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
-<td align="right">0.00008</td>
-<td align="right">0.00136</td>
-<td align="right">0.86790</td>
+<td align="right">0.00000</td>
+<td align="right">0.90060</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="left">Fulham</td>
+<td align="left">Bournemouth</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
-<td align="right">0.00006</td>
-<td align="right">0.00096</td>
-<td align="right">0.77266</td>
+<td align="right">0.00000</td>
+<td align="right">0.77612</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">Brighton</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
-<td align="right">0.00016</td>
-<td align="right">0.64632</td>
+<td align="right">0.71762</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">Brentford</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
-<td align="right">0.00002</td>
-<td align="right">0.63896</td>
+<td align="right">0.60566</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">Crystal Palace</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
-<td align="right">0.07322</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">Everton</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
-<td align="right">0.00028</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="left">Tottenham</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
-<td align="right">0.00026</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
 <td align="left">Man Utd</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
-<td align="right">0.00018</td>
 <td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Wolves</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
-<td align="right">0.00018</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
+<td align="left">Tottenham</td>
+<td align="right">0</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
 <td align="left">West Ham</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
-<td align="right">0.00006</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Wolves</td>
+<td align="right">0</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">Ipswich</td>
-<td align="right">0.00000</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
@@ -591,7 +595,7 @@
 </tr>
 <tr class="odd">
 <td align="left">Leicester</td>
-<td align="right">0.00000</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
@@ -600,7 +604,7 @@
 </tr>
 <tr class="even">
 <td align="left">Southampton</td>
-<td align="right">0.00000</td>
+<td align="right">0</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
 <td align="right">0.00000</td>
