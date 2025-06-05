@@ -33,7 +33,7 @@ data_test <- simulate_games(
 test_that("dimensionally correct", {
   expect_equal(
     ncol(data_test),
-    10L
+    7L
   )
   expect_equal(
     nrow(data_test),
@@ -43,7 +43,7 @@ test_that("dimensionally correct", {
 
 test_that("calculation correct", {
   expect_equal(
-    data_test |> dplyr::filter(team_home == "LEI", team_away == "LIV") |> dplyr::summarise(ave = mean(points_home)) |> dplyr::pull(ave),
+    data_test |> dplyr::filter(match == "601") |> dplyr::summarise(ave = mean(points_home)) |> dplyr::pull(ave),
     0.043,
     tolerance = 0.001
   )

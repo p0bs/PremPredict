@@ -22,6 +22,7 @@ Imports:
     jsonlite,
     knitr,
     lubridate,
+    purrr,
     rlang,
     stringr,
     tidyr

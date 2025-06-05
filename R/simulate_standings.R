@@ -62,6 +62,6 @@ simulate_standings <- function(data_game_simulations, data_table_latest){
     dplyr::mutate(ranking = dplyr::row_number()) |>
     dplyr::ungroup() |>
     dplyr::left_join(teams, by = c("Team" = "shortName")) |>
-    dplyr::select(.data$sim, .data$Team, .data$midName, .data$ranking)
+    dplyr::select(.data$sim, .data$midName, .data$ranking)
 
   }
