@@ -23,7 +23,7 @@ simulate_standings <- function(data_game_simulations, data_table_latest){
     dplyr::select(.data$sim, .data$team_home, .data$points_home) |>
     dplyr::summarise(
       points_home_total = sum(.data$points_home),
-      n_home = dplyr::n(),
+      # n_home = dplyr::n(),
       .by = c(.data$sim, .data$team_home)
     )
 
@@ -31,7 +31,7 @@ simulate_standings <- function(data_game_simulations, data_table_latest){
     dplyr::select(.data$sim, .data$team_away, .data$points_away) |>
     dplyr::summarise(
       points_away_total = sum(.data$points_away),
-      n_away = dplyr::n(),
+      # n_away = dplyr::n(),
       .by = c(.data$sim, .data$team_away)
     )
 
@@ -44,20 +44,21 @@ simulate_standings <- function(data_game_simulations, data_table_latest){
     dplyr::rowwise() |>
     dplyr::mutate(
       points_total = .data$points_home_total + .data$points_away_total,
-      n_total = .data$n_home + .data$n_away
+      # n_total = .data$n_home + .data$n_away
     ) |>
     dplyr::ungroup() |>
-    dplyr::select(.data$sim, "team" = .data$team_home, .data$points_total, .data$n_total) |>
+    dplyr::select(.data$sim, "team" = .data$team_home, .data$points_total) |>   #, .data$n_total) |>
     dplyr::left_join(
       data_table_latest,
       by = c("team" = "Team")
     ) |>
     dplyr::mutate(
       points_exp = .data$Points + .data$points_total,
-      games_exp = .data$Played + .data$n_total
+      # games_exp = .data$Played + .data$n_total
     ) |>
     dplyr::arrange(.data$sim, dplyr::desc(.data$points_exp), dplyr::desc(.data$GD)) |>
-    dplyr::select(.data$sim, "Team" = .data$team, "Played" = .data$games_exp, .data$GD, "Exp_Points" = .data$points_exp) |>
+    # dplyr::select(.data$sim, "Team" = .data$team, "Played" = .data$games_exp, .data$GD, "Exp_Points" = .data$points_exp) |>
+    dplyr::select(.data$sim, "Team" = .data$team, .data$GD, "Exp_Points" = .data$points_exp) |>
     dplyr::group_by(.data$sim) |>
     dplyr::mutate(ranking = dplyr::row_number()) |>
     dplyr::ungroup() |>
