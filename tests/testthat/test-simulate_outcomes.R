@@ -28,7 +28,7 @@ data_model_parameters_unplayed <- model_parameters_unplayed(
 
 data_simulate_games <- simulate_games(
   data_model_parameters_unplayed = data_model_parameters_unplayed,
-  value_number_sims = 1000L,
+  value_number_sims = 10000L,
   value_seed = 2602L
   )
 
@@ -39,7 +39,7 @@ data_simulate_standings <- simulate_standings(
 
 data_test <- simulate_outcomes(
   data_standings_simulations = data_simulate_standings,
-  value_number_sims = 1000L
+  value_number_sims = 10000L
   )
 
 test_that("dimensionally correct", {
@@ -56,7 +56,7 @@ test_that("dimensionally correct", {
 test_that("calculation correct", {
   expect_equal(
     data_test |> dplyr::filter(midName == "Newcastle") |> dplyr::pull(top_four),
-    0.586,
+    0.665,
     tolerance = 0.001
   )
 })

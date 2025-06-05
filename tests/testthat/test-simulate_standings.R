@@ -40,7 +40,7 @@ data_test <- simulate_standings(
 test_that("dimensionally correct", {
   expect_equal(
     ncol(data_test),
-    4L
+    3L
   )
   expect_equal(
     nrow(data_test),
@@ -50,7 +50,7 @@ test_that("dimensionally correct", {
 
 test_that("calculation correct", {
   expect_equal(
-    data_test |> dplyr::filter(sim == 1, Team == "NOT") |> dplyr::pull(ranking),
-    3L
+    data_test |> dplyr::filter(sim == 1, midName == "Notts Forest") |> dplyr::pull(ranking),
+    4L
   )
 })

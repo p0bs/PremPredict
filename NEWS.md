@@ -1,3 +1,5 @@
+# PremPredict (development version)
+
 # PremPredict 0.4.0
 * Adding code for simulating games and seasons
 * Updating the README

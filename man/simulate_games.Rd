@@ -15,7 +15,7 @@ simulate_games(
 
 \item{value_number_sims}{This is the number of simulations to use for each game in the remaining season. Defaults to 50,000.}
 
-\item{value_seed}{This is the seed to use for the random numbers in the simulation. Defaults to 120519 (which, IMHO, was a great football day).}
+\item{value_seed}{This is the seed to use for the random numbers in the simulation. Defaults to 120519 (which, IMHO, was a great footballing day).}
 }
 \description{
 This function takes the relevant parameters from the model and assigns them to the approapriate teams in each remaining game of the season.

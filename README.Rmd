@@ -59,11 +59,15 @@ First, we collect, combine and tidy the results data.
 library(PremPredict)
 data("example_thisSeason")
 
-results_combined <- get_results(example_thisSeason, seasons = 1L)
+results_combined <- get_results(
+  results_thisSeason = example_thisSeason, 
+  seasons = 1L
+  )
+
 dim(results_combined)
 ```
 
-However, we only wish to look back a full year from the current point (which is where each team has a small number of games remaining in the season).
+Note that we want to look back across this season (so far) and last.
 
 ```{r}
 game_latest <- calc_game_latest(results = results_combined)
@@ -71,13 +75,13 @@ game_latest <- calc_game_latest(results = results_combined)
 results_filtered <- get_results_filtered(
   results = results_combined, 
   index_game_latest = game_latest, 
-  lookback_rounds = 38L
+  lookback_rounds = 76L
   )
 
 dplyr::glimpse(results_filtered)
 ```
 
-The number of rows isn't 380, as some games this season have yet to be played and some games from last year didn't feature all of our teams from this season (as three teams were promoted from the Championship).
+The number of rows isn't 760, as some games this season have yet to be played and some games from last year didn't feature all of our teams from this season (as three teams were promoted from the Championship).
 
 For reference, we can see the prevailing table.
 
@@ -127,7 +131,7 @@ On this basis, Liverpool look like strong favourites to win the season (which th
 In order to project the likelihood of them becoming champions, however, we need to simulate many possible outcomes.
 
 ```{r}
-number_simulations <- 50000
+number_simulations <- 100000
 
 data_simulate_games <- simulate_games(
   data_model_parameters_unplayed = data_model_parameters_unplayed,

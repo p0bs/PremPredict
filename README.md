@@ -64,14 +64,16 @@ First, we collect, combine and tidy the results data.
 library(PremPredict)
 data("example_thisSeason")
 
-results_combined <- get_results(example_thisSeason, seasons = 1L)
+results_combined <- get_results(
+  results_thisSeason = example_thisSeason, 
+  seasons = 1L
+  )
+
 dim(results_combined)
 #> [1] 652   9
 ```
 
-However, we only wish to look back a full year from the current point
-(which is where each team has a small number of games remaining in the
-season).
+Note that we want to look back across this season (so far) and last.
 
 ``` r
 game_latest <- calc_game_latest(results = results_combined)
@@ -79,23 +81,23 @@ game_latest <- calc_game_latest(results = results_combined)
 results_filtered <- get_results_filtered(
   results = results_combined, 
   index_game_latest = game_latest, 
-  lookback_rounds = 38L
+  lookback_rounds = 76L
   )
 
 dplyr::glimpse(results_filtered)
-#> Rows: 433
+#> Rows: 652
 #> Columns: 8
-#> $ matchday <date> 2024-04-06, 2024-04-06, 2024-04-07, 2024-04-07, 2024-04-13, …
-#> $ homeTeam <chr> "WOL", "BRI", "MUN", "TOT", "NEW", "NOT", "BOU", "LIV", "WHU"…
-#> $ awayTeam <chr> "WHU", "ARS", "LIV", "NOT", "TOT", "WOL", "MUN", "CPA", "FUL"…
-#> $ FTHG     <dbl> 1, 0, 2, 3, 4, 2, 2, 0, 0, 0, 6, 0, 2, 3, 5, 1, 5, 0, 2, 2, 0…
-#> $ FTAG     <dbl> 2, 3, 2, 1, 0, 2, 2, 1, 2, 2, 0, 2, 0, 1, 2, 3, 0, 1, 0, 0, 4…
-#> $ FTR      <chr> "A", "A", "D", "H", "H", "D", "D", "A", "A", "A", "H", "A", "…
+#> $ matchday <date> 2023-08-12, 2023-08-12, 2023-08-12, 2023-08-12, 2023-08-13, …
+#> $ homeTeam <chr> "ARS", "BOU", "EVE", "NEW", "BRE", "CHE", "MUN", "FUL", "LIV"…
+#> $ awayTeam <chr> "NOT", "WHU", "FUL", "AST", "TOT", "LIV", "WOL", "BRE", "BOU"…
+#> $ FTHG     <dbl> 2, 1, 0, 5, 2, 1, 1, 0, 3, 1, 2, 1, 4, 3, 0, 0, 0, 3, 2, 1, 1…
+#> $ FTAG     <dbl> 1, 1, 1, 1, 2, 1, 0, 3, 1, 4, 0, 0, 0, 1, 1, 2, 1, 2, 2, 1, 3…
+#> $ FTR      <chr> "H", "D", "A", "H", "D", "D", "H", "A", "H", "A", "H", "H", "…
 #> $ played   <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, T…
-#> $ match    <chr> "220", "221", "222", "223", "224", "225", "226", "227", "228"…
+#> $ match    <chr> "001", "002", "003", "004", "005", "006", "007", "008", "009"…
 ```
 
-The number of rows isn’t 380, as some games this season have yet to be
+The number of rows isn’t 760, as some games this season have yet to be
 played and some games from last year didn’t feature all of our teams
 from this season (as three teams were promoted from the Championship).
 
@@ -148,21 +150,21 @@ data_model
 #> 
 #> Coefficients of interest:
 #> sARS_home  sAST_home  sBOU_home  sBRE_home  sBRI_home  sCHE_home  sCPA_home  
-#>   2.11616    1.80472    0.83416    0.91304    0.54456    2.10914    0.91035  
+#>   2.49717    2.03650    0.82635    0.54145    1.10363    1.80490    0.58710  
 #> sEVE_home  sFUL_home  sIPS_home  sLEI_home  sLIV_home  sMCI_home  sMUN_home  
-#>   0.95829    0.62203   -2.27916   -1.22314    2.77280    2.07414    0.50124  
+#>   0.68189    0.96641   -2.10476   -1.10237    3.04903    2.35849    0.88298  
 #> sNEW_home  sNOT_home  sSOU_home  sTOT_home  sWHU_home  sWOL_home  sARS_away  
-#>   1.78552    1.27272   -2.91937    0.48145    0.01834   -0.42682    1.99077  
+#>   2.05827    0.95438   -2.70490    1.22332    0.54540    0.28027    2.13189  
 #> sAST_away  sBOU_away  sBRE_away  sBRI_away  sCHE_away  sCPA_away  sEVE_away  
-#>   0.72014    0.68944    0.51242    0.70031    1.08462    1.07638   -0.09467  
+#>   0.90864    0.72265    0.47399    0.60825    0.96459    0.66492    0.35664  
 #> sFUL_away  sIPS_away  sLEI_away  sLIV_away  sMCI_away  sMUN_away  sNEW_away  
-#>   0.97085   -0.18998   -1.37943    1.87401    1.59837    0.10322    0.93390  
+#>   0.61757    0.02546   -1.16851    2.12468    1.97180    0.54222    0.74619  
 #> sNOT_away  sSOU_away  sTOT_away  sWHU_away  sWOL_away       draw  
-#>   0.94902   -2.17842   -0.40044    0.21730    0.34709         NA  
+#>   0.56485   -1.89532    0.37914    0.51793    0.68725         NA  
 #> 
-#> Deviance:            698.4004 
-#> Pearson chi-squared: 763.8907 
-#> Residual df:         722
+#> Deviance:            1131.798 
+#> Pearson chi-squared: 1206.453 
+#> Residual df:         1160
 ```
 
 \[I will add further details and more explanation in due course.\]
@@ -191,26 +193,26 @@ calc_points_expected_total(
 
 | midName        | Exp_Points_Ave |
 |:---------------|---------------:|
-| Liverpool      |       88.74337 |
-| Arsenal        |       75.88810 |
-| Man City       |       69.11474 |
-| Newcastle      |       67.69552 |
-| Notts Forest   |       67.52439 |
-| Chelsea        |       65.54868 |
-| Aston Villa    |       64.68776 |
-| Bournemouth    |       55.78469 |
-| Fulham         |       55.52520 |
-| Brighton       |       54.74692 |
-| Brentford      |       54.26864 |
-| Crystal Palace |       50.06070 |
-| Everton        |       44.36559 |
-| Man Utd        |       43.13457 |
-| West Ham       |       43.09143 |
-| Wolves         |       43.05042 |
-| Tottenham      |       42.18067 |
-| Ipswich        |       24.87862 |
-| Leicester      |       22.50480 |
-| Southampton    |       12.66985 |
+| Liverpool      |       89.23420 |
+| Arsenal        |       76.58606 |
+| Man City       |       69.37374 |
+| Newcastle      |       67.28586 |
+| Notts Forest   |       65.97324 |
+| Aston Villa    |       64.78610 |
+| Chelsea        |       64.55257 |
+| Bournemouth    |       55.16355 |
+| Fulham         |       55.09613 |
+| Brighton       |       54.63824 |
+| Brentford      |       53.55882 |
+| Crystal Palace |       48.59985 |
+| Wolves         |       44.38796 |
+| Everton        |       44.31846 |
+| Tottenham      |       44.23399 |
+| Man Utd        |       44.20111 |
+| West Ham       |       43.35263 |
+| Ipswich        |       25.13070 |
+| Leicester      |       22.37946 |
+| Southampton    |       12.88449 |
 
 On this basis, Liverpool look like strong favourites to win the season
 (which they went on to do).
@@ -219,7 +221,7 @@ In order to project the likelihood of them becoming champions, however,
 we need to simulate many possible outcomes.
 
 ``` r
-number_simulations <- 50000
+number_simulations <- 100000
 
 data_simulate_games <- simulate_games(
   data_model_parameters_unplayed = data_model_parameters_unplayed,
@@ -241,23 +243,23 @@ simulate_outcomes(
 
 | midName        | champion | top_four | top_five | top_six | top_half | relegation |
 |:---------------|---------:|---------:|---------:|--------:|---------:|-----------:|
-| Liverpool      |  0.99946 |  1.00000 |  1.00000 | 1.00000 |  1.00000 |          0 |
-| Arsenal        |  0.00054 |  0.99896 |  0.99988 | 0.99998 |  1.00000 |          0 |
-| Man City       |  0.00000 |  0.76812 |  0.90642 | 0.97190 |  1.00000 |          0 |
-| Newcastle      |  0.00000 |  0.48344 |  0.73910 | 0.91198 |  1.00000 |          0 |
-| Notts Forest   |  0.00000 |  0.41786 |  0.67196 | 0.86860 |  1.00000 |          0 |
-| Chelsea        |  0.00000 |  0.23658 |  0.45472 | 0.73708 |  1.00000 |          0 |
-| Aston Villa    |  0.00000 |  0.09504 |  0.22778 | 0.50796 |  0.99998 |          0 |
-| Bournemouth    |  0.00000 |  0.00000 |  0.00008 | 0.00136 |  0.86790 |          0 |
-| Fulham         |  0.00000 |  0.00000 |  0.00006 | 0.00096 |  0.77266 |          0 |
-| Brighton       |  0.00000 |  0.00000 |  0.00000 | 0.00016 |  0.64632 |          0 |
-| Brentford      |  0.00000 |  0.00000 |  0.00000 | 0.00002 |  0.63896 |          0 |
-| Crystal Palace |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.07322 |          0 |
-| Everton        |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00028 |          0 |
-| Tottenham      |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00026 |          0 |
-| Man Utd        |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00018 |          0 |
-| Wolves         |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00018 |          0 |
-| West Ham       |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00006 |          0 |
-| Ipswich        |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
-| Leicester      |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
-| Southampton    |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
+| Liverpool      |        1 |  1.00000 |  1.00000 | 1.00000 |  1.00000 |          0 |
+| Arsenal        |        0 |  1.00000 |  1.00000 | 1.00000 |  1.00000 |          0 |
+| Man City       |        0 |  0.84513 |  0.87164 | 1.00000 |  1.00000 |          0 |
+| Newcastle      |        0 |  0.72136 |  0.89928 | 0.97331 |  1.00000 |          0 |
+| Notts Forest   |        0 |  0.29474 |  0.50437 | 0.95472 |  1.00000 |          0 |
+| Chelsea        |        0 |  0.00000 |  0.44208 | 0.57944 |  1.00000 |          0 |
+| Aston Villa    |        0 |  0.13877 |  0.28263 | 0.49253 |  1.00000 |          0 |
+| Fulham         |        0 |  0.00000 |  0.00000 | 0.00000 |  0.90060 |          0 |
+| Bournemouth    |        0 |  0.00000 |  0.00000 | 0.00000 |  0.77612 |          0 |
+| Brighton       |        0 |  0.00000 |  0.00000 | 0.00000 |  0.71762 |          0 |
+| Brentford      |        0 |  0.00000 |  0.00000 | 0.00000 |  0.60566 |          0 |
+| Crystal Palace |        0 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          0 |
+| Everton        |        0 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          0 |
+| Man Utd        |        0 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          0 |
+| Tottenham      |        0 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          0 |
+| West Ham       |        0 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          0 |
+| Wolves         |        0 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          0 |
+| Ipswich        |        0 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
+| Leicester      |        0 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
+| Southampton    |        0 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |

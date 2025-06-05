@@ -1,7 +1,7 @@
 Package: PremPredict
 Type: Package
 Title: Predict the Premier League
-Version: 0.4.0
+Version: 0.4.0.9000
 Authors@R:
     person(given = "Robin",
            family = "Penfold",
@@ -22,6 +22,7 @@ Imports:
     jsonlite,
     knitr,
     lubridate,
+    purrr,
     rlang,
     stringr,
     tidyr
