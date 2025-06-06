@@ -1,3 +1,6 @@
+# PremPredict 0.4.2
+* Adding run_simulations as a soup-to-nuts workflow function
+
 # PremPredict 0.4.1
 * Performance improvements
 
