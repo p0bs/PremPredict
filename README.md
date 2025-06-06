@@ -41,7 +41,7 @@ approach](https://github.com/DavidFirth/alt3code) and data from the
 GitHub to predict the outcome of this season’s Premier League.
 
 The predictions are based on a team’s strength, given its performance in
-recent times. But how should we define *recent*? In order to duck this
+recent times. But how should we define ‘recent’? In order to duck this
 question, you could choose a number of different time periods. Please
 note that 0.0% and 100.0% outcomes in the results do not necessarily
 signify certainty in their specific assessment, as:
@@ -73,7 +73,8 @@ dim(results_combined)
 #> [1] 652   9
 ```
 
-Note that we want to look back across this season (so far) and last.
+Note that we want to look back across this season (so far) and its
+predecessor.
 
 ``` r
 game_latest <- calc_game_latest(results = results_combined)
@@ -97,9 +98,9 @@ dplyr::glimpse(results_filtered)
 #> $ match    <chr> "001", "002", "003", "004", "005", "006", "007", "008", "009"…
 ```
 
-The number of rows isn’t 760, as some games this season have yet to be
-played and some games from last year didn’t feature all of our teams
-from this season (as three teams were promoted from the Championship).
+The number of rows isn’t 760, as some games from last year didn’t
+feature all of our teams from this season (as three teams were promoted
+from the Championship).
 
 For reference, we can see the prevailing table.
 
@@ -237,6 +238,44 @@ data_simulate_standings <- simulate_standings(
 simulate_outcomes(
   data_standings_simulations = data_simulate_standings,
   value_number_sims = number_simulations
+  ) |> 
+  knitr::kable()
+```
+
+| midName        | champion | top_four | top_five | top_six | top_half | relegation |
+|:---------------|---------:|---------:|---------:|--------:|---------:|-----------:|
+| Liverpool      |  0.99947 |  1.00000 |  1.00000 | 1.00000 |  1.00000 |          0 |
+| Arsenal        |  0.00053 |  0.99971 |  0.99998 | 1.00000 |  1.00000 |          0 |
+| Man City       |  0.00000 |  0.84937 |  0.94411 | 0.98603 |  1.00000 |          0 |
+| Newcastle      |  0.00000 |  0.52397 |  0.77407 | 0.92290 |  1.00000 |          0 |
+| Notts Forest   |  0.00000 |  0.28892 |  0.55001 | 0.78434 |  1.00000 |          0 |
+| Chelsea        |  0.00000 |  0.19916 |  0.40786 | 0.66660 |  1.00000 |          0 |
+| Aston Villa    |  0.00000 |  0.13886 |  0.32376 | 0.63639 |  0.99998 |          0 |
+| Bournemouth    |  0.00000 |  0.00001 |  0.00013 | 0.00171 |  0.86680 |          0 |
+| Fulham         |  0.00000 |  0.00000 |  0.00003 | 0.00107 |  0.78650 |          0 |
+| Brighton       |  0.00000 |  0.00000 |  0.00005 | 0.00076 |  0.70238 |          0 |
+| Brentford      |  0.00000 |  0.00000 |  0.00000 | 0.00020 |  0.60255 |          0 |
+| Crystal Palace |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.03467 |          0 |
+| Tottenham      |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00310 |          0 |
+| Wolves         |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00172 |          0 |
+| Man Utd        |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00135 |          0 |
+| Everton        |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00074 |          0 |
+| West Ham       |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00021 |          0 |
+| Ipswich        |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
+| Leicester      |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
+| Southampton    |  0.00000 |  0.00000 |  0.00000 | 0.00000 |  0.00000 |          1 |
+
+Alternatively, this table can be generated, without calculating all
+intermediate steps, by running the following code. (Note that the code
+for `|> knitr::kable()` is purely for presentational purposes.)
+
+``` r
+run_simulations(
+  results_thisSeason = example_thisSeason, 
+  number_seasons = 1L, 
+  lookback_rounds = 78L, 
+  number_simulations = 100000, 
+  value_seed = 2602L
   ) |> 
   knitr::kable()
 ```
