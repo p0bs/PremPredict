@@ -6,6 +6,12 @@ template:
   bootstrap: 5
 
 reference:
+- title: "Soup to nuts"
+  desc: >
+    Find the outcomes that result from a set of simulations, using the model and relevant data
+- contents:
+  - run_simulations
+
 - title: "Data preparation"
   desc: >
     Preparing the data for modelling
