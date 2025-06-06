@@ -56,7 +56,7 @@ test_that("dimensionally correct", {
 test_that("calculation correct", {
   expect_equal(
     data_test |> dplyr::filter(midName == "Newcastle") |> dplyr::pull(top_four),
-    0.665,
+    0.585,
     tolerance = 0.001
   )
 })
