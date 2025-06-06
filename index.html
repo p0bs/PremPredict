@@ -71,7 +71,7 @@
 <h2 id="approach">Approach<a class="anchor" aria-label="anchor" href="#approach"></a>
 </h2>
 <p>I use a simplified version of <a href="https://github.com/DavidFirth/alt3code" class="external-link">David Firth’s approach</a> and data from the <a href="https://github.com/openfootball/football.json" class="external-link">Open Football repo</a> on GitHub to predict the outcome of this season’s Premier League.</p>
-<p>The predictions are based on a team’s strength, given its performance in recent times. But how should we define <em>recent</em>? In order to duck this question, you could choose a number of different time periods. Please note that 0.0% and 100.0% outcomes in the results do not necessarily signify certainty in their specific assessment, as:</p>
+<p>The predictions are based on a team’s strength, given its performance in recent times. But how should we define ‘recent’? In order to duck this question, you could choose a number of different time periods. Please note that 0.0% and 100.0% outcomes in the results do not necessarily signify certainty in their specific assessment, as:</p>
 <ul>
 <li>this model is typically used with more than 1,000 simulations; and more pertinently</li>
 <li>this model (like all models) is imperfect (but, I think, better than no model at all)</li>
@@ -94,7 +94,7 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">results_combined</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 652   9</span></span></code></pre></div>
-<p>Note that we want to look back across this season (so far) and last.</p>
+<p>Note that we want to look back across this season (so far) and its predecessor.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">game_latest</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_game_latest.html">calc_game_latest</a></span><span class="op">(</span>results <span class="op">=</span> <span class="va">results_combined</span><span class="op">)</span></span>
 <span></span>
@@ -115,7 +115,7 @@
 <span><span class="co">#&gt; $ FTR      &lt;chr&gt; "H", "D", "A", "H", "D", "D", "H", "A", "H", "A", "H", "H", "…</span></span>
 <span><span class="co">#&gt; $ played   &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, T…</span></span>
 <span><span class="co">#&gt; $ match    &lt;chr&gt; "001", "002", "003", "004", "005", "006", "007", "008", "009"…</span></span></code></pre></div>
-<p>The number of rows isn’t 760, as some games this season have yet to be played and some games from last year didn’t feature all of our teams from this season (as three teams were promoted from the Championship).</p>
+<p>The number of rows isn’t 760, as some games from last year didn’t feature all of our teams from this season (as three teams were promoted from the Championship).</p>
 <p>For reference, we can see the prevailing table.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_table_current</span> <span class="op">&lt;-</span> <span class="va">example_thisSeason</span> <span class="op">|&gt;</span> </span>
@@ -409,6 +409,218 @@
 <span><span class="fu"><a href="reference/simulate_outcomes.html">simulate_outcomes</a></span><span class="op">(</span></span>
 <span>  data_standings_simulations <span class="op">=</span> <span class="va">data_simulate_standings</span>,</span>
 <span>  value_number_sims <span class="op">=</span> <span class="va">number_simulations</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="11%">
+<col width="12%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">midName</th>
+<th align="right">champion</th>
+<th align="right">top_four</th>
+<th align="right">top_five</th>
+<th align="right">top_six</th>
+<th align="right">top_half</th>
+<th align="right">relegation</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Liverpool</td>
+<td align="right">0.99947</td>
+<td align="right">1.00000</td>
+<td align="right">1.00000</td>
+<td align="right">1.00000</td>
+<td align="right">1.00000</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Arsenal</td>
+<td align="right">0.00053</td>
+<td align="right">0.99971</td>
+<td align="right">0.99998</td>
+<td align="right">1.00000</td>
+<td align="right">1.00000</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Man City</td>
+<td align="right">0.00000</td>
+<td align="right">0.84937</td>
+<td align="right">0.94411</td>
+<td align="right">0.98603</td>
+<td align="right">1.00000</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Newcastle</td>
+<td align="right">0.00000</td>
+<td align="right">0.52397</td>
+<td align="right">0.77407</td>
+<td align="right">0.92290</td>
+<td align="right">1.00000</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Notts Forest</td>
+<td align="right">0.00000</td>
+<td align="right">0.28892</td>
+<td align="right">0.55001</td>
+<td align="right">0.78434</td>
+<td align="right">1.00000</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Chelsea</td>
+<td align="right">0.00000</td>
+<td align="right">0.19916</td>
+<td align="right">0.40786</td>
+<td align="right">0.66660</td>
+<td align="right">1.00000</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Aston Villa</td>
+<td align="right">0.00000</td>
+<td align="right">0.13886</td>
+<td align="right">0.32376</td>
+<td align="right">0.63639</td>
+<td align="right">0.99998</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Bournemouth</td>
+<td align="right">0.00000</td>
+<td align="right">0.00001</td>
+<td align="right">0.00013</td>
+<td align="right">0.00171</td>
+<td align="right">0.86680</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Fulham</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00003</td>
+<td align="right">0.00107</td>
+<td align="right">0.78650</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Brighton</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00005</td>
+<td align="right">0.00076</td>
+<td align="right">0.70238</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Brentford</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00020</td>
+<td align="right">0.60255</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Crystal Palace</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.03467</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Tottenham</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00310</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Wolves</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00172</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Man Utd</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00135</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Everton</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00074</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">West Ham</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00021</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Ipswich</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Leicester</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Southampton</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">0.00000</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>Alternatively, this table can be generated, without calculating all intermediate steps, by running the following code. (Note that the code for <code>|&gt; knitr::kable()</code> is purely for presentational purposes.)</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/run_simulations.html">run_simulations</a></span><span class="op">(</span></span>
+<span>  results_thisSeason <span class="op">=</span> <span class="va">example_thisSeason</span>, </span>
+<span>  number_seasons <span class="op">=</span> <span class="fl">1L</span>, </span>
+<span>  lookback_rounds <span class="op">=</span> <span class="fl">78L</span>, </span>
+<span>  number_simulations <span class="op">=</span> <span class="fl">100000</span>, </span>
+<span>  value_seed <span class="op">=</span> <span class="fl">2602L</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
