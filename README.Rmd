@@ -42,7 +42,7 @@ pak::pak("p0bs/PremPredict")
 
 I use a simplified version of [David Firth's approach](https://github.com/DavidFirth/alt3code) and data from the [Open Football repo](https://github.com/openfootball/football.json) on GitHub to predict the outcome of this season's Premier League. 
 
-The predictions are based on a team's strength, given its performance in recent times. But how should we define *recent*? In order to duck this question, you could choose a number of different time periods. Please note that 0.0% and 100.0% outcomes in the results do not necessarily signify certainty in their specific assessment, as: 
+The predictions are based on a team's strength, given its performance in recent times. But how should we define 'recent'? In order to duck this question, you could choose a number of different time periods. Please note that 0.0% and 100.0% outcomes in the results do not necessarily signify certainty in their specific assessment, as: 
 
   * this model is typically used with more than 1,000 simulations; and more pertinently
   * this model (like all models) is imperfect (but, I think, better than no model at all)
@@ -67,7 +67,7 @@ results_combined <- get_results(
 dim(results_combined)
 ```
 
-Note that we want to look back across this season (so far) and last.
+Note that we want to look back across this season (so far) and its predecessor.
 
 ```{r}
 game_latest <- calc_game_latest(results = results_combined)
@@ -81,7 +81,7 @@ results_filtered <- get_results_filtered(
 dplyr::glimpse(results_filtered)
 ```
 
-The number of rows isn't 760, as some games this season have yet to be played and some games from last year didn't feature all of our teams from this season (as three teams were promoted from the Championship).
+The number of rows isn't 760, as some games from last year didn't feature all of our teams from this season (as three teams were promoted from the Championship).
 
 For reference, we can see the prevailing table.
 
@@ -147,6 +147,19 @@ data_simulate_standings <- simulate_standings(
 simulate_outcomes(
   data_standings_simulations = data_simulate_standings,
   value_number_sims = number_simulations
+  ) |> 
+  knitr::kable()
+```
+
+Alternatively, this table can be generated, without calculating all intermediate steps, by running the following code. (Note that the code for `|> knitr::kable()` is purely for presentational purposes.)
+
+```{r}
+run_simulations(
+  results_thisSeason = example_thisSeason, 
+  number_seasons = 1L, 
+  lookback_rounds = 78L, 
+  number_simulations = 100000, 
+  value_seed = 2602L
   ) |> 
   knitr::kable()
 ```
