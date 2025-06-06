@@ -1,4 +1,5 @@
-# PremPredict (development version)
+# PremPredict 0.4.1
+* Performance improvements
 
 # PremPredict 0.4.0
 * Adding code for simulating games and seasons
