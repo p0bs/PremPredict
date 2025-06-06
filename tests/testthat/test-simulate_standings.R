@@ -51,6 +51,6 @@ test_that("dimensionally correct", {
 test_that("calculation correct", {
   expect_equal(
     data_test |> dplyr::filter(sim == 1, midName == "Notts Forest") |> dplyr::pull(ranking),
-    4L
+    3L
   )
 })

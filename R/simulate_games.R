@@ -19,23 +19,20 @@
 
 simulate_games <- function(data_model_parameters_unplayed, value_number_sims = 50000, value_seed = 120519L){
 
-  set.seed(value_seed)
+  number_matches <- nrow(data_model_parameters_unplayed)
 
-  randoms <- tibble::tibble(
-    value_random = stats::runif(n = value_number_sims)
-    ) |>
-    tibble::rowid_to_column(var = "sim")
+  set.seed(value_seed)
+  randoms_superset <- stats::runif(n = value_number_sims * number_matches)
 
   slim_parameters_unplayed <- data_model_parameters_unplayed |>
     dplyr::select("match", "team_home", "team_away", "prob_home", "prob_draw")
 
-  matchRun <- 1:nrow(data_model_parameters_unplayed)
-
   test_now <- purrr::map(
-    .x = matchRun,
+    .x = 1:number_matches,
     .f = ~calc_points_simulated_match(
       data_model_parameters_unplayed_slim = slim_parameters_unplayed,
-      randoms = randoms,
+      randoms = randoms_superset,
+      number_sims = value_number_sims,
       value_match = .x
       )
     ) |>
