@@ -41,6 +41,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_points_simulated_match</span><span class="op">(</span></span>
 <span>  <span class="va">data_model_parameters_unplayed_slim</span>,</span>
 <span>  <span class="va">randoms</span>,</span>
+<span>  <span class="va">number_sims</span>,</span>
 <span>  <span class="va">value_match</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -54,7 +55,11 @@
 
 
 <dt id="arg-randoms">randoms<a class="anchor" aria-label="anchor" href="#arg-randoms"></a></dt>
-<dd><p>This is a vector of uniformly-distributed random numbers, with columns called <code>sim</code> (the id variable for the simulation) and <code>value_random</code> (the random variate in each case).</p></dd>
+<dd><p>This is a vector of uniformly-distributed random numbers, with a length of the product of the number of remaining matches and the number of simulations.</p></dd>
+
+
+<dt id="arg-number-sims">number_sims<a class="anchor" aria-label="anchor" href="#arg-number-sims"></a></dt>
+<dd><p>This is the number of simulations to use for each game in the remaining season. Defaults to 50,000.</p></dd>
 
 
 <dt id="arg-value-match">value_match<a class="anchor" aria-label="anchor" href="#arg-value-match"></a></dt>
@@ -68,6 +73,7 @@
 <span class="r-in"><span><span class="fu">calc_points_simulated_match</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data_model_parameters_unplayed_slim <span class="op">=</span> <span class="va">data_model_parameters_unplayed</span>,</span></span>
 <span class="r-in"><span>  randoms <span class="op">=</span> <span class="va">data_randoms</span>,</span></span>
+<span class="r-in"><span>  number_sims <span class="op">=</span> <span class="va">value_number_sims</span>,</span></span>
 <span class="r-in"><span>  value_match <span class="op">=</span> <span class="fl">1L</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
