@@ -1,3 +1,6 @@
+# PremPredict 0.4.3
+* Adding error checks and documentation details to run_simulations
+
 # PremPredict 0.4.2
 * Adding run_simulations as a soup-to-nuts workflow function
 
