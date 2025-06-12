@@ -19,6 +19,8 @@
 
 run_simulations <- function(results_thisSeason, number_seasons, lookback_rounds, number_simulations, value_seed){
 
+  if(!is.data.frame(results_thisSeason)){cli::cli_abort("{.arg results_thisSeason} can only be used if it is a dataframe.")}
+
   utils::data("example_thisSeason")
 
   results_combined <- get_results(
