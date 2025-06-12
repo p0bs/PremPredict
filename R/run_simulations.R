@@ -33,6 +33,8 @@ run_simulations <- function(results_thisSeason, number_seasons = 0L, lookback_ro
 
   # Error checks ----
 
+  teams <- PremPredict::teams
+
   if (ncol(results_thisSeason) != 10) {
     cli::cli_abort(
       c(
@@ -47,14 +49,82 @@ run_simulations <- function(results_thisSeason, number_seasons = 0L, lookback_ro
     all(
       colnames(results_thisSeason) %in%
       c("number_match", "number_match_integer", "matchday", "homeTeam", "awayTeam", "FTHG", "FTAG", "FTR", "played", "year_end")
-      )
-    )){
+    )
+  )){
     cli::cli_abort("Column names of {.arg results_thisSeason} can only be called 'number_match', 'number_match_integer', 'matchday', 'homeTeam', 'awayTeam', 'FTHG', 'FTAG', 'FTR', 'played' and 'year_end'.")
   }
 
   if(!is.data.frame(results_thisSeason)){
     cli::cli_abort("{.arg results_thisSeason} can only be used if it is a dataframe.")
-    }
+  }
+
+  if(!is.character(results_thisSeason$number_match)){
+    cli::cli_abort(c(
+      "{.var number_match} in {.var results_thisSeason} must be an character",
+      "x" = "You've supplied a {.cls {class(results_thisSeason$number_match)}}."
+    ))
+  }
+
+  if(!is.integer(results_thisSeason$number_match_integer)){
+    cli::cli_abort(c(
+      "{.var number_match_integer} in {.var results_thisSeason} must be an integer",
+      "x" = "You've supplied a {.cls {class(results_thisSeason$number_match_integer)}}."
+    ))
+  }
+
+  if(!lubridate::is.Date(results_thisSeason$matchday)){
+    cli::cli_abort(c(
+      "{.var matchday} in {.var results_thisSeason} must be a date",
+      "x" = "You've supplied a {.cls {class(results_thisSeason$matchday)}}."
+    ))
+  }
+
+  if(!(all(results_thisSeason$homeTeam %in% teams$shortName))){
+    cli::cli_abort("All values of {.var homeTeam} in {.var results_thisSeason} must be a {.var shortName} in the `teams` dataset in this package.")
+  }
+
+  if(!(all(results_thisSeason$awayTeam %in% teams$shortName))){
+    cli::cli_abort("All values of {.var awayTeam} in {.var results_thisSeason} must be a {.var shortName} in the `teams` dataset in this package.")
+  }
+
+  if(!is.integer(results_thisSeason$FTHG)){
+    cli::cli_abort(c(
+      "{.var FTHG} in {.var results_thisSeason} must be an integer",
+      "x" = "You've supplied a {.cls {class(results_thisSeason$FTHG)}}."
+    ))
+  }
+
+  if(!is.integer(results_thisSeason$FTAG)){
+    cli::cli_abort(c(
+      "{.var FTAG} in {.var results_thisSeason} must be an integer",
+      "x" = "You've supplied a {.cls {class(results_thisSeason$FTAG)}}."
+    ))
+  }
+
+  if(!is.factor(results_thisSeason$FTR)){
+    cli::cli_abort(c(
+      "{.var FTR} in {.var results_thisSeason} must be a factor",
+      "x" = "You've supplied a {.cls {class(results_thisSeason$FTR)}}."
+    ))
+  }
+
+  # Add FTR error check for factor levels?
+
+  if(!is.logical(results_thisSeason$played)){
+    cli::cli_abort(c(
+      "{.var played} in {.var results_thisSeason} must be a logical",
+      "x" = "You've supplied a {.cls {class(results_thisSeason$played)}}."
+    ))
+  }
+
+  # Add year_end error check for sensible years?
+
+  if(!is.integer(results_thisSeason$year_end)){
+    cli::cli_abort(c(
+      "{.var year_end} in {.var results_thisSeason} must be an integer",
+      "x" = "You've supplied a {.cls {class(results_thisSeason$year_end)}}."
+    ))
+  }
 
   if(!is.integer(number_seasons)){
     cli::cli_abort(c(
