@@ -4,7 +4,7 @@ data_test <- run_simulations(
   results_thisSeason = data_current_test,
   number_seasons = 1L,
   lookback_rounds = 78L,
-  number_simulations = 25000,
+  number_simulations = 25000L,
   value_seed = 2602L
   )
 
