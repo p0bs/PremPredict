@@ -1,12 +1,12 @@
 # Code to prepare `example_thisSeason` dataset
-# Committed on 2025-04-21
+# Committed on 2025-10-20
 
 data("teams")
 
 example_thisSeason <- get_openData(
-  value_path = 'https://raw.githubusercontent.com/openfootball/football.json/abbe4d33bc2234c895d36654c542b10066856b4e/2024-25/en.1.json',
+  value_path = 'https://raw.githubusercontent.com/openfootball/football.json/refs/heads/master/2025-26/en.1.json',
   table_teams = teams,
-  value_yearEnd = 2025L
+  value_yearEnd = 2026L
 )
 
 usethis::use_data(example_thisSeason, overwrite = TRUE)

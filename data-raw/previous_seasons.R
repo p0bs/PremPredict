@@ -2,9 +2,9 @@
 data("teams")
 
 results_lastSeason <- get_openData(
-  value_path = system.file("extdata", "en1_2324.json", package = "PremPredict"),
+  value_path = system.file("extdata", "en1_2425.json", package = "PremPredict"),
   table_teams = teams,
-  value_yearEnd = 2024L
+  value_yearEnd = 2025L
 )
 
 # I could add more seasons in due course (but will only do the most recent for now)

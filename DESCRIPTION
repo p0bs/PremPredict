@@ -14,7 +14,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/p0bs/PremPredict, https://p0bs.github.io/PremPredict/
 BugReports: https://github.com/p0bs/PremPredict/issues
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports:
     cli,
     dplyr,
