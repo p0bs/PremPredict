@@ -19,7 +19,7 @@ calc_game_latest <- function(results){
     dplyr::filter(.data$played) |>
     dplyr::arrange(dplyr::desc(.data$row_order)) |>
     dplyr::slice(1) |>
-    dplyr::select(.data$matchday, .data$FTHG, .data$FTAG, .data$match, .data$row_order) |>
+    dplyr::select("matchday", "FTHG", "FTAG", "match", "row_order") |>
     dplyr::pull(.data$row_order)
 
   }

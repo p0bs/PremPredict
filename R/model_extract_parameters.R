@@ -22,7 +22,7 @@ model_extract_parameters <- function(model_output){
   details <- outputs$coefficients |>
     as.data.frame() |>
     tibble::rownames_to_column("team_location") |>
-    dplyr::select(.data$team_location, "estimate" = .data$Estimate) |>
+    dplyr::select("team_location", "estimate" = "Estimate") |>
     dplyr::rowwise() |>
     dplyr::mutate(
       estimate_e = exp(.data$estimate),
@@ -33,14 +33,14 @@ model_extract_parameters <- function(model_output){
 
   dplyr::bind_rows(
     details |>
-      dplyr::select("team" = .data$homeTeam, .data$estimate_e) |>
+      dplyr::select("team" = "homeTeam", "estimate_e") |>
       dplyr::mutate(location = "home"),
     details |>
-      dplyr::select("team" = .data$awayTeam, .data$estimate_e) |>
+      dplyr::select("team" = "awayTeam", "estimate_e") |>
       dplyr::mutate(location = "away")
   ) |>
     dplyr::filter(!is.na(.data$team)) |>
-    dplyr::select(.data$team, .data$location, .data$estimate_e) |>
+    dplyr::select("team", "location", "estimate_e") |>
     dplyr::arrange(.data$team, dplyr::desc(.data$location))
 
   }

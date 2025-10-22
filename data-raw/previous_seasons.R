@@ -1,4 +1,5 @@
 # Code to prepare `previous_seasons` dataset
+# Ensure that the page is first in RAW format
 data("teams")
 
 results_lastSeason <- get_openData(

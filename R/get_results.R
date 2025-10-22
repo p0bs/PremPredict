@@ -32,7 +32,7 @@ get_results <- function(results_thisSeason, seasons = 0L){
       match = sprintf("%03d", dplyr::row_number()),
       row_order = as.integer(.data$match)
     ) |>
-    dplyr::select(-.data$id_match, -.data$number_match, -.data$number_match_integer)
+    dplyr::select(-"id_match", -"number_match", -"number_match_integer")
 
   year_latest <- temp |>
     dplyr::distinct(.data$year_end) |>
@@ -44,6 +44,6 @@ get_results <- function(results_thisSeason, seasons = 0L){
       .data$year_end <= year_latest,
       .data$year_end >= year_latest - seasons
       ) |>
-    dplyr::select(-.data$year_end)
+    dplyr::select(-"year_end")
 
   }

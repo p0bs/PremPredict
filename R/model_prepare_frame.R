@@ -24,7 +24,7 @@ model_prepare_frame <- function(results){
       draw = as.numeric(.data$FTR == "D"),
       count = dplyr::if_else((is.na(.data$FTHG) | is.na(.data$FTAG)), NA, .data$count)
     ) |>
-    dplyr::select(dplyr::everything(), .data$count, .data$draw) |>
+    dplyr::select(dplyr::everything(), "count", "draw") |>
     dplyr::mutate(match = forcats::as_factor(.data$match))
 
   X <- matrix(0, nrow(modelframe), 2 * nTeams)
@@ -39,6 +39,6 @@ model_prepare_frame <- function(results){
 
   modelframe |>
     dplyr::mutate(s = X) |>
-    dplyr::select(.data$match, .data$count, .data$draw, .data$s)
+    dplyr::select("match", "count", "draw", "s")
 
   }

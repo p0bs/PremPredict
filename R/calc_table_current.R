@@ -36,16 +36,16 @@ calc_table_current <- function(results){
 
   dplyr::bind_rows(
     data_tabulated |>
-      dplyr::select("team" = .data$homeTeam, "points" = .data$points_home, "goaldiff" = .data$goaldiff_home),
+      dplyr::select("team" = "homeTeam", "points" = "points_home", "goaldiff" = "goaldiff_home"),
     data_tabulated |>
-      dplyr::select("team" = .data$awayTeam, "points" = .data$points_away, "goaldiff" = .data$goaldiff_away)
+      dplyr::select("team" = "awayTeam", "points" = "points_away", "goaldiff" = "goaldiff_away")
   ) |>
     dplyr::summarise(
       points_total = sum(.data$points),
       goaldiff_total = sum(.data$goaldiff),
       games_total = dplyr::n(),
-      .by = .data$team
+      .by = "team"
     ) |>
-    dplyr::select("Team" = .data$team, "Played" = .data$games_total, "GD" = .data$goaldiff_total, "Points" = .data$points_total)
+    dplyr::select("Team" = "team", "Played" = "games_total", "GD" = "goaldiff_total", "Points" = "points_total")
 
   }
