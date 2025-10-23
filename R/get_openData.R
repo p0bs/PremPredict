@@ -20,8 +20,6 @@
 
 get_openData <- function(value_path, table_teams, value_yearEnd){
 
-  table_teams <- PremPredict::teams
-
   temp <- jsonlite::read_json(
     path = value_path,
     simplifyVector = TRUE

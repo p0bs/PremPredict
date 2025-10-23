@@ -20,8 +20,6 @@
 
 get_openData_schedule <- function(value_path, table_teams, value_yearEnd){
 
-  table_teams <- PremPredict::teams
-
   jsonlite::read_json(
     path = value_path,
     simplifyVector = TRUE
