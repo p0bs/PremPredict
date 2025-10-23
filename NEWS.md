@@ -1,3 +1,7 @@
+# PremPredict 0.4.4
+* Adding ways to import third-party data that is frequently updated
+* Updating aspects to a new season
+
 # PremPredict 0.4.3
 * Adding error checks and documentation details to run_simulations
 
