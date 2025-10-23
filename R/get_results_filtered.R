@@ -25,6 +25,6 @@ get_results_filtered <- function(results, index_game_latest, lookback_rounds){
     dplyr::filter(
       .data$row_order >= index_game_earliest
     ) |>
-    dplyr::select(-.data$row_order)
+    dplyr::select(-"row_order")
 
   }

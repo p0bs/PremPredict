@@ -22,10 +22,10 @@ model_parameters_unplayed <- function(model_parameters, results){
       is.na(.data$FTHG),
       is.na(.data$FTAG)
     ) |>
-    dplyr::select(.data$match, .data$homeTeam, .data$awayTeam) |>
+    dplyr::select("match", "homeTeam", "awayTeam") |>
     dplyr::left_join(model_parameters |> dplyr::filter(.data$location == "home"), c("homeTeam" = "team")) |>
     dplyr::left_join(model_parameters |> dplyr::filter(.data$location == "away"), c("awayTeam" = "team")) |>
-    dplyr::select(.data$match, "team_home" = .data$homeTeam, "team_away" = .data$awayTeam, "param_home" = .data$estimate_e.x, "param_away" = .data$estimate_e.y) |>
+    dplyr::select("match", "team_home" = "homeTeam", "team_away" = "awayTeam", "param_home" = "estimate_e.x", "param_away" = "estimate_e.y") |>
     dplyr::rowwise() |>
     dplyr::mutate(
       value_denom = .data$param_home + .data$param_away + ((.data$param_home * .data$param_away) ^ (1/3)),

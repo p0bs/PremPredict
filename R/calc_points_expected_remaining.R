@@ -19,24 +19,24 @@ calc_points_expected_remaining <- function(games_remaining){
     dplyr::summarise(
       points = sum(.data$exp_home),
       games = dplyr::n(),
-      .by = .data$team_home
+      .by = "team_home"
     ) |>
-    dplyr::select("team" = .data$team_home, .data$games, .data$points)
+    dplyr::select("team" = "team_home", "games", "points")
 
   points_away <- games_remaining |>
     dplyr::summarise(
       points = sum(.data$exp_away),
       games = dplyr::n(),
-      .by = .data$team_away
+      .by = "team_away"
     ) |>
-    dplyr::select("team" = .data$team_away, .data$games, .data$points)
+    dplyr::select("team" = "team_away", "games", "points")
 
   dplyr::bind_rows(points_home, points_away) |>
     dplyr::summarise(
       value = sum(.data$points),
       games_left = sum(.data$games),
-      .by = .data$team
+      .by = "team"
     ) |>
-    dplyr::arrange(dplyr::desc(.data$value), .data$team)
+    dplyr::arrange(dplyr::desc("value"), "team")
 
   }

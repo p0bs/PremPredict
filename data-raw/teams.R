@@ -1,27 +1,29 @@
 # Code to prepare `teams` dataset
+# Ensure that `teamName` is consistent with those on the openfootball repo
+#  and that all other names are unique
 
 teams <- tibble::tribble(
-  ~teamName, ~shortName, ~midName,
-  "Arsenal FC", "ARS", "Arsenal",
-  "Aston Villa FC", "AST", "Aston Villa",
-  "AFC Bournemouth", "BOU", "Bournemouth",
-  "Brentford FC", "BRE", "Brentford",
-  "Brighton & Hove Albion FC", "BRI", "Brighton",
-  "Chelsea FC", "CHE", "Chelsea",
-  "Crystal Palace FC", "CPA", "Crystal Palace",
-  "Everton FC", "EVE", "Everton",
-  "Fulham FC", "FUL", "Fulham",
-  "Ipswich Town FC", "IPS", "Ipswich",
-  "Leicester City FC", "LEI", "Leicester",
-  "Liverpool FC", "LIV", "Liverpool",
-  "Manchester City FC", "MCI", "Man City",
-  "Manchester United FC", "MUN", "Man Utd",
-  "Newcastle United FC", "NEW", "Newcastle",
-  "Nottingham Forest FC", "NOT", "Notts Forest",
-  "Southampton FC", "SOU", "Southampton",
-  "Tottenham Hotspur FC", "TOT", "Tottenham",
-  "West Ham United FC", "WHU", "West Ham",
-  "Wolverhampton Wanderers FC", "WOL", "Wolves"
+  ~teamName, ~shortName, ~midName, ~openName,
+  "Arsenal", "ARS", "Arsenal", "Arsenal FC",
+  "Aston Villa", "AST", "Aston Villa", "Aston Villa",
+  "Bournemouth", "BOU", "Bournemouth", "AFC Bournemouth",
+  "Brentford", "BRE", "Brentford", "Brentford FC",
+  "Brighton", "BRI", "Brighton", "Brighton & Hove Albion",
+  "Burnley", "BUR", "Burnley", "Burnley FC",
+  "Chelsea", "CHE", "Chelsea", "Chelsea FC",
+  "Crystal Palace", "CPA", "Crystal Palace", "Crystal Palace",
+  "Everton", "EVE", "Everton", "Everton FC",
+  "Fulham", "FUL", "Fulham", "Fulham FC",
+  "Leeds", "LEE", "Leeds Utd", "Leeds United",
+  "Liverpool", "LIV", "Liverpool", "Liverpool FC",
+  "Man City", "MCI", "Man City", "Manchester City",
+  "Man United", "MUN", "Man Utd", "Manchester United",
+  "Newcastle", "NEW", "Newcastle", "Newcastle United",
+  "Nott'm Forest", "NOT", "Notts Forest", "Nottingham Forest",
+  "Sunderland", "SUN", "Sunderland", "Sunderland AFC",
+  "Tottenham", "TOT", "Tottenham", "Tottenham Hotspur",
+  "West Ham", "WHU", "West Ham", "West Ham United",
+  "Wolves", "WOL", "Wolves", "Wolverhampton Wanderers"
   )
 
 usethis::use_data(teams, overwrite = TRUE, internal = TRUE)

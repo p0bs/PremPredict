@@ -20,17 +20,17 @@ simulate_standings <- function(data_game_simulations, data_table_latest){
   teams <- PremPredict::teams
 
   game_sims_home <- data_game_simulations |>
-    dplyr::select(.data$sim, "team" = .data$team_home, "points" = .data$points_home)
+    dplyr::select("sim", "team" = "team_home", "points" = "points_home")
 
   game_sims_away <- data_game_simulations |>
-    dplyr::select(.data$sim, "team" = .data$team_away, "points" = .data$points_away)
+    dplyr::select("sim", "team" = "team_away", "points" = "points_away")
 
   game_sims <- dplyr::bind_rows(game_sims_home, game_sims_away) |>
     dplyr::summarise(
       points_total = sum(.data$points),
-      .by = c(.data$sim, .data$team)
+      .by = c("sim", "team")
     ) |>
-    dplyr::arrange(.data$sim, .data$team) |>
+    dplyr::arrange("sim", "team") |>
     dplyr::left_join(
       data_table_latest,
       by = c("team" = "Team")
@@ -38,12 +38,12 @@ simulate_standings <- function(data_game_simulations, data_table_latest){
     dplyr::mutate(
       points_exp = .data$Points + .data$points_total
     ) |>
-    dplyr::arrange(.data$sim, dplyr::desc(.data$points_exp), dplyr::desc(.data$GD)) |>
-    dplyr::select(.data$sim, "Team" = .data$team, .data$GD, "Exp_Points" = .data$points_exp) |>
-    dplyr::group_by(.data$sim) |>
+    dplyr::arrange("sim", dplyr::desc("points_exp"), dplyr::desc("GD")) |>
+    dplyr::select("sim", "Team" = "team", "GD", "Exp_Points" = "points_exp") |>
+    dplyr::group_by("sim") |>
     dplyr::mutate(ranking = dplyr::row_number()) |>
     dplyr::ungroup() |>
     dplyr::left_join(teams, by = c("Team" = "shortName")) |>
-    dplyr::select(.data$sim, .data$midName, .data$ranking)
+    dplyr::select("sim", "midName", "ranking")
 
   }

@@ -20,8 +20,6 @@
 
 get_openData <- function(value_path, table_teams, value_yearEnd){
 
-  table_teams <- PremPredict::teams
-
   temp <- jsonlite::read_json(
     path = value_path,
     simplifyVector = TRUE
@@ -32,12 +30,12 @@ get_openData <- function(value_path, table_teams, value_yearEnd){
       matchweek = as.integer(stringr::str_sub(.data$round, 10, -1)),
       matchday = lubridate::as_date(.data$date)
     ) |>
-    dplyr::select(.data$matchweek, .data$matchday, .data$team1, .data$team2, .data$score.ft) |>
-    tidyr::unnest_wider(col = .data$score.ft, names_sep = ".", simplify = TRUE) |>
-    dplyr::select(.data$matchweek, .data$matchday, .data$team1, .data$team2, "FTHG" = .data$score.ft.1, "FTAG" = .data$score.ft.2)
+    dplyr::select("matchweek", "matchday", "team1", "team2", "score.ft") |>
+    tidyr::unnest_wider("score.ft", names_sep = ".", simplify = TRUE) |>
+    dplyr::select("matchweek", "matchday", "team1", "team2", "FTHG" = "score.ft.1", "FTAG" = "score.ft.2")
 
   temp2 <- dplyr::left_join(x = temp1, y = table_teams, by = c("team1" = "teamName")) |>
-    dplyr::rename("homeTeam" = .data$shortName)
+    dplyr::rename("homeTeam" = "shortName")
 
   temp3 <- dplyr::left_join(x = temp2, y = table_teams, by = c("team2" = "teamName")) |>
     dplyr::filter(
@@ -58,7 +56,7 @@ get_openData <- function(value_path, table_teams, value_yearEnd){
       played = !.data$unplayed,
       year_end = value_yearEnd
     ) |>
-    dplyr::select(.data$number_match, .data$number_match_integer, .data$matchday, .data$homeTeam, "awayTeam" = .data$shortName, .data$FTHG, .data$FTAG, .data$FTR, .data$played, .data$year_end)
+    dplyr::select("number_match", "number_match_integer", "matchday", "homeTeam", "awayTeam" = "shortName", "FTHG", "FTAG", "FTR", "played", "year_end")
 
   return(temp3)
 }
