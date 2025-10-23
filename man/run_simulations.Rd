@@ -39,6 +39,7 @@ run_simulations(
 This function takes the relevant parameters from the model and assigns them to the approapriate teams in each remaining game of the season.
 }
 \examples{
+\dontrun{
 run_simulations(
   results_thisSeason = example_thisSeason,
   number_seasons = 1L,
@@ -46,5 +47,7 @@ run_simulations(
   number_simulations = 25000L,
   value_seed = 120519L
   )
+  }
+
 }
 \keyword{Sport}

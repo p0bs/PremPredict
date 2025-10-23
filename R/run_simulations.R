@@ -21,6 +21,7 @@
 #' @keywords Sport
 #' @export
 #' @examples
+#' \dontrun{
 #' run_simulations(
 #'   results_thisSeason = example_thisSeason,
 #'   number_seasons = 1L,
@@ -28,6 +29,8 @@
 #'   number_simulations = 25000L,
 #'   value_seed = 120519L
 #'   )
+#'   }
+#'
 
 run_simulations <- function(results_thisSeason, number_seasons = 0L, lookback_rounds = 19L, number_simulations = 25000L, value_seed = 120519L){
 
