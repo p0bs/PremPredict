@@ -30,7 +30,6 @@ simulate_standings <- function(data_game_simulations, data_table_latest){
       points_total = sum(.data$points),
       .by = c("sim", "team")
     ) |>
-    dplyr::arrange("sim", "team") |>
     dplyr::left_join(
       data_table_latest,
       by = c("team" = "Team")
@@ -38,9 +37,9 @@ simulate_standings <- function(data_game_simulations, data_table_latest){
     dplyr::mutate(
       points_exp = .data$Points + .data$points_total
     ) |>
-    dplyr::arrange("sim", dplyr::desc("points_exp"), dplyr::desc("GD")) |>
+    dplyr::arrange(.data$sim, dplyr::desc(.data$points_exp), dplyr::desc(.data$GD)) |>
     dplyr::select("sim", "Team" = "team", "GD", "Exp_Points" = "points_exp") |>
-    dplyr::group_by("sim") |>
+    dplyr::group_by(.data$sim) |>
     dplyr::mutate(ranking = dplyr::row_number()) |>
     dplyr::ungroup() |>
     dplyr::left_join(teams, by = c("Team" = "shortName")) |>

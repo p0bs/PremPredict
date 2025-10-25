@@ -37,6 +37,6 @@ calc_points_expected_remaining <- function(games_remaining){
       games_left = sum(.data$games),
       .by = "team"
     ) |>
-    dplyr::arrange(dplyr::desc("value"), "team")
+    dplyr::arrange(dplyr::desc(.data$value), .data$team)
 
   }

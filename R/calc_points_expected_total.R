@@ -20,13 +20,13 @@ calc_points_expected_total <- function(table_current, points_expected){
   teams <- PremPredict::teams
 
   projections <- table_current |>
-    dplyr::arrange("Team") |>
+    dplyr::arrange(.data$Team) |>
     dplyr::left_join(points_expected, by = c("Team" = "team")) |>
     dplyr::mutate(
       points_exp = .data$Points + .data$value,
       games_exp = .data$Played + .data$games_left
     ) |>
-    dplyr::arrange(dplyr::desc("points_exp"), dplyr::desc("GD")) |>
+    dplyr::arrange(dplyr::desc(.data$points_exp), dplyr::desc(.data$GD)) |>
     dplyr::select("Team", "Played" = "games_exp", "Exp_Points" = "points_exp")
 
   projections |>
@@ -34,7 +34,7 @@ calc_points_expected_total <- function(table_current, points_expected){
       Exp_Points_Ave = mean(.data$Exp_Points),
       .by = "Team"
     ) |>
-    dplyr::arrange(dplyr::desc("Exp_Points_Ave")) |>
+    dplyr::arrange(dplyr::desc(.data$Exp_Points_Ave)) |>
     dplyr::left_join(
       teams,
       by = c("Team" = "shortName")
