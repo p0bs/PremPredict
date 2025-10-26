@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PremPredict</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>A dataset containing the teams in the latest Premier League season.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/p0bs/PremPredict/blob/v0.4.3/R/data-teams.R" class="external-link"><code>R/data-teams.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/p0bs/PremPredict/blob/main/R/data-teams.R" class="external-link"><code>R/data-teams.R</code></a></small>
       <div class="d-none name"><code>teams.Rd</code></div>
     </div>
 
@@ -43,14 +43,17 @@
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>A data frame with 20 rows (one for each team) and 3 variables:</p><dl><dt>teamName</dt>
-<dd><p>The long name of the team in question</p></dd>
+    <p>A data frame with 20 rows (one for each team) and 4 variables:</p><dl><dt>teamName</dt>
+<dd><p>The long name of the team in question, used in footballData</p></dd>
 
 <dt>shortName</dt>
 <dd><p>The three-letter code of the team in question</p></dd>
 
 <dt>midName</dt>
 <dd><p>The more-readable name of the team in question</p></dd>
+
+<dt>openName</dt>
+<dd><p>The more-readable name of the team in question, used in openData</p></dd>
 
 
 </dl></div>

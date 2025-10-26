@@ -12,7 +12,9 @@
 <url><loc>/reference/calc_points_simulated_match.html</loc></url>
 <url><loc>/reference/calc_table_current.html</loc></url>
 <url><loc>/reference/example_thisSeason.html</loc></url>
+<url><loc>/reference/get_footballData.html</loc></url>
 <url><loc>/reference/get_openData.html</loc></url>
+<url><loc>/reference/get_openData_schedule.html</loc></url>
 <url><loc>/reference/get_results.html</loc></url>
 <url><loc>/reference/get_results_filtered.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
@@ -23,6 +25,7 @@
 <url><loc>/reference/previous_seasons.html</loc></url>
 <url><loc>/reference/print_table_current.html</loc></url>
 <url><loc>/reference/run_simulations.html</loc></url>
+<url><loc>/reference/schedule_thisSeason.html</loc></url>
 <url><loc>/reference/simulate_games.html</loc></url>
 <url><loc>/reference/simulate_outcomes.html</loc></url>
 <url><loc>/reference/simulate_standings.html</loc></url>
