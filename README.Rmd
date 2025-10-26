@@ -51,7 +51,7 @@ The predictions are based on a team's strength, given its performance in recent 
 
 ## Example
 
-Here is an example analysis, using data collected towards the end of the 2024/25 season.
+Here is an example analysis, using data collected towards the end of the 2025/26 season.
 
 First, we collect, combine and tidy the results data.
 
@@ -80,9 +80,6 @@ results_filtered <- get_results_filtered(
 
 dplyr::glimpse(results_filtered)
 ```
-
-The number of rows isn't 760, as some games from last year didn't feature all of our teams from this season (as three teams were promoted from the Championship).
-
 For reference, we can see the prevailing table.
 
 ```{r, message=FALSE}
@@ -126,7 +123,7 @@ calc_points_expected_total(
   knitr::kable()
 ```
 
-On this basis, Liverpool look like strong favourites to win the season (which they went on to do). 
+On this basis, Liverpool look like slight favourites to win the season. 
 
 In order to project the likelihood of them becoming champions, however, we need to simulate many possible outcomes.
 
@@ -151,16 +148,4 @@ simulate_outcomes(
   knitr::kable()
 ```
 
-Alternatively, this table can be generated, without calculating all intermediate steps, by running the following code. (Note that the code for `|> knitr::kable()` is purely for presentational purposes.)
-
-```{r}
-run_simulations(
-  results_thisSeason = example_thisSeason, 
-  number_seasons = 1L, 
-  lookback_rounds = 78L, 
-  number_simulations = 100000, 
-  value_seed = 2602L
-  ) |> 
-  knitr::kable()
-```
-
+Alternatively, this table can be generated, without calculating all intermediate steps, by running `run_simulations`.
