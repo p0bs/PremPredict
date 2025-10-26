@@ -1,3 +1,6 @@
+# PremPredict 0.4.5
+* Now with limited tests (more to follow) but a README for the new season
+
 # PremPredict 0.4.4
 * Adding ways to import third-party data that is frequently updated
 * Updating aspects to a new season
