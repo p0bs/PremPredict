@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/p0bs/PremPredict/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/p0bs/PremPredict/blob/v0.4.7/DESCRIPTION)
 
 Penfold R (2026). *PremPredict: Predict the Premier League*. R package
 version 0.4.7, <https://github.com/p0bs/PremPredict>.
