@@ -1,3 +1,6 @@
+# PremPredict 0.4.7
+* Improving output for outcomes when they are extremely likely or unlikely
+
 # PremPredict 0.4.6
 * Reinstating simplified tests
 
