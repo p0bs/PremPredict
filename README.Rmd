@@ -125,7 +125,7 @@ calc_points_expected_total(
 
 On this basis, Liverpool look like slight favourites to win the season. 
 
-In order to project the likelihood of them becoming champions, however, we need to simulate many possible outcomes.
+In order to project the likelihood of them becoming champions, though, we need to simulate many possible outcomes.
 
 ```{r}
 number_simulations <- 100000
