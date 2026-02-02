@@ -63,3 +63,4 @@ reference:
     Functions used within the package but not exported
   contents:
   - calc_points_simulated_match
+  - reformat_outcomes
