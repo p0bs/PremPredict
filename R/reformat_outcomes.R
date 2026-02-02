@@ -14,7 +14,10 @@ reformat_outcomes <- function(value) {
   dplyr::case_when(
     dplyr::between(value, 0.001, 0.999) ~ paste0(
       as.character(
-        round(100 * value, 1)
+        format(
+          round(100 * value, digits = 1),
+          nsmall = 1
+        )
       ),
       "%"
     ),

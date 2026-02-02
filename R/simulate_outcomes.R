@@ -15,8 +15,7 @@
 #'
 #' @importFrom rlang .data
 
-simulate_outcomes <- function(data_standings_simulations, value_number_sims){
-
+simulate_outcomes <- function(data_standings_simulations, value_number_sims) {
   data_standings_simulations |>
     dplyr::count(.data$midName, .data$ranking, name = "freq") |>
     tidyr::complete(.data$midName, .data$ranking) |>
@@ -25,8 +24,8 @@ simulate_outcomes <- function(data_standings_simulations, value_number_sims){
         midName = NA_character_,
         ranking = NA_integer_,
         freq = 0L
-        )
-      ) |>
+      )
+    ) |>
     dplyr::mutate(likelihood = .data$freq / value_number_sims) |>
     dplyr::select(-"freq") |>
     tidyr::pivot_wider(
@@ -34,7 +33,7 @@ simulate_outcomes <- function(data_standings_simulations, value_number_sims){
       names_from = "ranking",
       names_prefix = "p",
       values_from = "likelihood"
-      ) |>
+    ) |>
     dplyr::mutate(
       champion = .data$p1,
       top_four = .data$p1 + .data$p2 + .data$p3 + .data$p4,
@@ -43,7 +42,25 @@ simulate_outcomes <- function(data_standings_simulations, value_number_sims){
       top_half = .data$top_six + .data$p7 + .data$p8 + .data$p9 + .data$p10,
       relegation = .data$p18 + .data$p19 + .data$p20
     ) |>
-    dplyr::select("midName", "champion", "top_four", "top_five", "top_six", "top_half", "relegation") |>
-    dplyr::arrange(dplyr::desc(.data$champion), dplyr::desc(.data$top_six), dplyr::desc(.data$top_half), .data$relegation)
-
-  }
+    dplyr::select(
+      "midName",
+      "champion",
+      "top_four",
+      "top_five",
+      "top_six",
+      "top_half",
+      "relegation"
+    ) |>
+    dplyr::arrange(
+      dplyr::desc(.data$champion),
+      dplyr::desc(.data$top_six),
+      dplyr::desc(.data$top_half),
+      .data$relegation
+    ) |>
+    dplyr::mutate(
+      dplyr::across(
+        .cols = -"midName",
+        .fns = ~ reformat_outcomes(value = .x)
+      )
+    )
+}
