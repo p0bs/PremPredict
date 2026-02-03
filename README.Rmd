@@ -42,10 +42,7 @@ pak::pak("p0bs/PremPredict")
 
 I use a simplified version of [David Firth's approach](https://github.com/DavidFirth/alt3code) and data from the [Open Football repo](https://github.com/openfootball/football.json) on GitHub to predict the outcome of this season's Premier League. 
 
-The predictions are based on a team's strength, given its performance in recent times. But how should we define 'recent'? In order to duck this question, you could choose a number of different time periods. Please note that 0.0% and 100.0% outcomes in the results do not necessarily signify certainty in their specific assessment, as: 
-
-  * this model is typically used with more than 1,000 simulations; and more pertinently
-  * this model (like all models) is imperfect (but, I think, better than no model at all)
+The predictions are based on a team's strength, given its performance in recent times. But how should we define 'recent'? In order to duck this question, you could choose a number of different time periods. Please also see some further disclaimers that are in these notes for my automatically-updated Premier League predictor (as linked above).
 
 <br/>
 
@@ -100,8 +97,6 @@ data_model <- results_filtered |>
 data_model
 ```
 
-[I will add further details and more explanation in due course.]
-
 Next, we use these team strengths to model future games across the season.
 
 ```{r}
@@ -123,9 +118,9 @@ calc_points_expected_total(
   knitr::kable()
 ```
 
-On this basis, Liverpool look like slight favourites to win the season. 
+On this basis, we can see who looks like favourites to win the season. 
 
-In order to project the likelihood of them becoming champions, though, we need to simulate many possible outcomes.
+In order to project the likelihood of these favourites becoming champions, though, we need to simulate many possible outcomes.
 
 ```{r}
 number_simulations <- 100000

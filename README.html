@@ -632,14 +632,8 @@ League.</p>
 <p>The predictions are based on a team’s strength, given its performance
 in recent times. But how should we define ‘recent’? In order to duck
 this question, you could choose a number of different time periods.
-Please note that 0.0% and 100.0% outcomes in the results do not
-necessarily signify certainty in their specific assessment, as:</p>
-<ul>
-<li>this model is typically used with more than 1,000 simulations; and
-more pertinently</li>
-<li>this model (like all models) is imperfect (but, I think, better than
-no model at all)</li>
-</ul>
+Please also see some further disclaimers that are in these notes for my
+automatically-updated Premier League predictor (as linked above).</p>
 <br />
 
 <h2 id="example">Example</h2>
@@ -844,7 +838,6 @@ predecessor.</p>
 <span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt; Deviance:            849.1585 </span></span>
 <span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; Pearson chi-squared: 904.8874 </span></span>
 <span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; Residual df:         879</span></span></code></pre></div>
-<p>[I will add further details and more explanation in due course.]</p>
 <p>Next, we use these team strengths to model future games across the
 season.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>data_parameters_unplayed <span class="ot">&lt;-</span> data_model <span class="sc">|&gt;</span> </span>
@@ -953,10 +946,10 @@ season.</p>
 </tr>
 </tbody>
 </table>
-<p>On this basis, Liverpool look like slight favourites to win the
+<p>On this basis, we can see who looks like favourites to win the
 season.</p>
-<p>In order to project the likelihood of them becoming champions,
-though, we need to simulate many possible outcomes.</p>
+<p>In order to project the likelihood of these favourites becoming
+champions, though, we need to simulate many possible outcomes.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>number_simulations <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>data_simulate_games <span class="ot">&lt;-</span> <span class="fu">simulate_games</span>(</span>
@@ -994,8 +987,8 @@ though, we need to simulate many possible outcomes.</p>
 <td align="left">97.8%</td>
 <td align="left">99.1%</td>
 <td align="left">99.6%</td>
-<td align="left">&gt; 99.9%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&gt;99.9%</td>
+<td align="left">&lt;0.1%</td>
 </tr>
 <tr>
 <td align="left">Liverpool</td>
@@ -1003,8 +996,8 @@ though, we need to simulate many possible outcomes.</p>
 <td align="left">98.3%</td>
 <td align="left">99.3%</td>
 <td align="left">99.7%</td>
-<td align="left">&gt; 99.9%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&gt;99.9%</td>
+<td align="left">&lt;0.1%</td>
 </tr>
 <tr>
 <td align="left">Man City</td>
@@ -1013,7 +1006,7 @@ though, we need to simulate many possible outcomes.</p>
 <td align="left">80.4%</td>
 <td align="left">88.2%</td>
 <td align="left">99.0%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 </tr>
 <tr>
 <td align="left">Chelsea</td>
@@ -1022,7 +1015,7 @@ though, we need to simulate many possible outcomes.</p>
 <td align="left">66.4%</td>
 <td align="left">78.5%</td>
 <td align="left">97.7%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 </tr>
 <tr>
 <td align="left">Sunderland</td>
@@ -1031,7 +1024,7 @@ though, we need to simulate many possible outcomes.</p>
 <td align="left">53.3%</td>
 <td align="left">69.1%</td>
 <td align="left">97.0%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 </tr>
 <tr>
 <td align="left">Aston Villa</td>
@@ -1040,7 +1033,7 @@ though, we need to simulate many possible outcomes.</p>
 <td align="left">25.9%</td>
 <td align="left">39.1%</td>
 <td align="left">84.7%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 </tr>
 <tr>
 <td align="left">Bournemouth</td>
@@ -1049,29 +1042,29 @@ though, we need to simulate many possible outcomes.</p>
 <td align="left">20.6%</td>
 <td align="left">32.2%</td>
 <td align="left">78.5%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 </tr>
 <tr>
 <td align="left">Brighton</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">8.2%</td>
 <td align="left">16.3%</td>
 <td align="left">26.9%</td>
 <td align="left">75.1%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 </tr>
 <tr>
 <td align="left">Newcastle</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">10.8%</td>
 <td align="left">20.4%</td>
 <td align="left">32.2%</td>
 <td align="left">80.5%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 </tr>
 <tr>
 <td align="left">Crystal Palace</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">5.5%</td>
 <td align="left">11.2%</td>
 <td align="left">19.2%</td>
@@ -1080,7 +1073,7 @@ though, we need to simulate many possible outcomes.</p>
 </tr>
 <tr>
 <td align="left">Brentford</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">0.9%</td>
 <td align="left">2.3%</td>
 <td align="left">4.9%</td>
@@ -1089,7 +1082,7 @@ though, we need to simulate many possible outcomes.</p>
 </tr>
 <tr>
 <td align="left">Notts Forest</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">0.8%</td>
 <td align="left">2.2%</td>
 <td align="left">4.5%</td>
@@ -1098,7 +1091,7 @@ though, we need to simulate many possible outcomes.</p>
 </tr>
 <tr>
 <td align="left">Everton</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">0.4%</td>
 <td align="left">1.1%</td>
 <td align="left">2.5%</td>
@@ -1107,7 +1100,7 @@ though, we need to simulate many possible outcomes.</p>
 </tr>
 <tr>
 <td align="left">Fulham</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">0.3%</td>
 <td align="left">0.9%</td>
 <td align="left">2.0%</td>
@@ -1116,7 +1109,7 @@ though, we need to simulate many possible outcomes.</p>
 </tr>
 <tr>
 <td align="left">Man Utd</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">0.2%</td>
 <td align="left">0.5%</td>
 <td align="left">1.2%</td>
@@ -1125,47 +1118,47 @@ though, we need to simulate many possible outcomes.</p>
 </tr>
 <tr>
 <td align="left">Tottenham</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">0.2%</td>
 <td align="left">3.6%</td>
 <td align="left">20.7%</td>
 </tr>
 <tr>
 <td align="left">Leeds Utd</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">0.6%</td>
 <td align="left">44.5%</td>
 </tr>
 <tr>
 <td align="left">West Ham</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">0.2%</td>
 <td align="left">67.3%</td>
 </tr>
 <tr>
 <td align="left">Burnley</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">58.9%</td>
 </tr>
 <tr>
 <td align="left">Wolves</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
-<td align="left">&lt; 0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
+<td align="left">&lt;0.1%</td>
 <td align="left">91.2%</td>
 </tr>
 </tbody>
