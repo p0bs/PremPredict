@@ -21,8 +21,8 @@ reformat_outcomes <- function(value) {
       ),
       "%"
     ),
-    value < 0.001 ~ "< 0.1%",
-    value > 0.999 ~ "> 99.9%",
+    value < 0.001 ~ "<0.1%",
+    value > 0.999 ~ ">99.9%",
     .default = "Error"
   )
 }
