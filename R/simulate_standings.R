@@ -15,34 +15,42 @@
 #'
 #' @importFrom rlang .data
 
-simulate_standings <- function(data_game_simulations, data_table_latest){
-
+simulate_standings <- function(data_game_simulations, data_table_latest) {
   teams <- PremPredict::teams
 
-  game_sims_home <- data_game_simulations |>
-    dplyr::select("sim", "team" = "team_home", "points" = "points_home")
+  # Convert to data.table
+  dt_sims <- data.table::setDT(data.table::copy(data_game_simulations))
+  dt_table <- data.table::setDT(data.table::copy(data_table_latest))
+  dt_teams <- data.table::setDT(data.table::copy(teams))
 
-  game_sims_away <- data_game_simulations |>
-    dplyr::select("sim", "team" = "team_away", "points" = "points_away")
+  # Combine home and away
+  dt_long <- data.table::rbindlist(list(
+    dt_sims[, .(sim, team = team_home, points = points_home)],
+    dt_sims[, .(sim, team = team_away, points = points_away)]
+  ))
 
-  game_sims <- dplyr::bind_rows(game_sims_home, game_sims_away) |>
-    dplyr::summarise(
-      points_total = sum(.data$points),
-      .by = c("sim", "team")
-    ) |>
-    dplyr::left_join(
-      data_table_latest,
-      by = c("team" = "Team")
-    ) |>
-    dplyr::mutate(
-      points_exp = .data$Points + .data$points_total
-    ) |>
-    dplyr::arrange(.data$sim, dplyr::desc(.data$points_exp), dplyr::desc(.data$GD)) |>
-    dplyr::select("sim", "Team" = "team", "GD", "Exp_Points" = "points_exp") |>
-    dplyr::group_by(.data$sim) |>
-    dplyr::mutate(ranking = dplyr::row_number()) |>
-    dplyr::ungroup() |>
-    dplyr::left_join(teams, by = c("Team" = "shortName")) |>
-    dplyr::select("sim", "midName", "ranking")
+  # Aggregate
+  dt_agg <- dt_long[, .(points_total = sum(points)), by = .(sim, team)]
 
-  }
+  # Join using data.table syntax (right join keeping all from dt_agg)
+  dt_merged <- dt_table[dt_agg, on = .(Team = team)]
+  data.table::setnames(dt_merged, "Team", "team")
+
+  # Calculate expected points
+  dt_merged[, data.table::`:=`(points_exp = Points + points_total)]
+
+  # In-place sorting (faster than creating sorted copy)
+  data.table::setorder(dt_merged, sim, -points_exp, -GD)
+
+  # Add ranking - seq_len(.N) gives row numbers within each group
+  dt_merged[, data.table::`:=`(ranking = seq_len(data.table::.N)), by = sim]
+
+  # Join and select
+  result <- dt_teams[dt_merged, on = .(shortName = team)][, .(
+    sim,
+    midName,
+    ranking
+  )]
+
+  return(dplyr::as_tibble(result))
+}
