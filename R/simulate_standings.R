@@ -14,8 +14,14 @@
 #' }
 #'
 #' @importFrom rlang .data
+#' @importFrom data.table as.data.table rbindlist frank .N .SD :=
+#' @importFrom dplyr as_tibble
 
 simulate_standings <- function(data_game_simulations, data_table_latest) {
+  # Due to NSE notes in R CMD check
+  sim <- team <- points <- points_home <- points_away <- team_home <- team_away <- NULL
+  points_total <- Points <- points_exp <- GD <- ranking <- midName <- . <- NULL
+
   teams <- PremPredict::teams
 
   # Convert to data.table
@@ -37,13 +43,13 @@ simulate_standings <- function(data_game_simulations, data_table_latest) {
   data.table::setnames(dt_merged, "Team", "team")
 
   # Calculate expected points
-  dt_merged[, data.table::`:=`(points_exp = Points + points_total)]
+  dt_merged[, points_exp := Points + points_total]
 
   # In-place sorting (faster than creating sorted copy)
   data.table::setorder(dt_merged, sim, -points_exp, -GD)
 
   # Add ranking - seq_len(.N) gives row numbers within each group
-  dt_merged[, data.table::`:=`(ranking = seq_len(data.table::.N)), by = sim]
+  dt_merged[, ranking := seq_len(.N), by = sim]
 
   # Join and select
   result <- dt_teams[dt_merged, on = .(shortName = team)][, .(
