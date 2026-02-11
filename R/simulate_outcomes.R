@@ -14,53 +14,81 @@
 #' }
 #'
 #' @importFrom rlang .data
-
+#' @importFrom data.table as.data.table dcast .N setnames setorder :=
+#' @importFrom dplyr as_tibble across mutate desc
+#'
 simulate_outcomes <- function(data_standings_simulations, value_number_sims) {
-  data_standings_simulations |>
-    dplyr::count(.data$midName, .data$ranking, name = "freq") |>
-    tidyr::complete(.data$midName, .data$ranking) |>
-    tidyr::replace_na(
-      replace = list(
-        midName = NA_character_,
-        ranking = NA_integer_,
-        freq = 0L
-      )
-    ) |>
-    dplyr::mutate(likelihood = .data$freq / value_number_sims) |>
-    dplyr::select(-"freq") |>
-    tidyr::pivot_wider(
-      id_cols = "midName",
-      names_from = "ranking",
-      names_prefix = "p",
-      values_from = "likelihood"
-    ) |>
-    dplyr::mutate(
-      champion = .data$p1,
-      top_four = .data$p1 + .data$p2 + .data$p3 + .data$p4,
-      top_five = .data$top_four + .data$p5,
-      top_six = .data$top_five + .data$p6,
-      top_half = .data$top_six + .data$p7 + .data$p8 + .data$p9 + .data$p10,
-      relegation = .data$p18 + .data$p19 + .data$p20
-    ) |>
-    dplyr::select(
-      "midName",
-      "champion",
-      "top_four",
-      "top_five",
-      "top_six",
-      "top_half",
-      "relegation"
-    ) |>
-    dplyr::arrange(
-      dplyr::desc(.data$champion),
-      dplyr::desc(.data$top_six),
-      dplyr::desc(.data$top_half),
-      .data$relegation
-    ) |>
+  # Declare variables for R CMD check
+  midName <- ranking <- . <- ..prob_cols <- NULL
+  champion <- top_four <- top_five <- top_six <- top_half <- relegation <- NULL
+
+  # Convert to data.table
+  dt <- data.table::as.data.table(data_standings_simulations)
+
+  # OPTIMIZATION 1: Count frequencies and cast in one efficient pipeline
+  # This replaces: count() + complete() + replace_na() + pivot_wider()
+  # dcast automatically handles missing combinations with fill = 0
+  dt_wide <- data.table::dcast(
+    dt[, .N, by = .(midName, ranking)],
+    midName ~ ranking,
+    value.var = "N",
+    fill = 0L
+  )
+
+  # OPTIMIZATION 2: Rename columns efficiently
+  # Handle case where not all rankings 1-20 may be present
+  for (i in 1:20) {
+    old_col <- as.character(i)
+    new_col <- paste0("p", i)
+    if (old_col %in% names(dt_wide)) {
+      data.table::setnames(dt_wide, old_col, new_col)
+    } else {
+      # Add missing columns with 0 values
+      dt_wide[, (new_col) := 0L]
+    }
+  }
+
+  # OPTIMIZATION 3: Use matrix operations for fast vectorized calculations
+  # Extract probability columns as matrix for efficient row operations
+  prob_cols <- paste0("p", 1:20)
+  prob_matrix <- as.matrix(dt_wide[, ..prob_cols]) / value_number_sims
+
+  # Calculate all aggregate statistics using fast matrix row sums
+  dt_wide[, `:=`(
+    champion = prob_matrix[, 1],
+    top_four = rowSums(prob_matrix[, 1:4, drop = FALSE]),
+    top_five = rowSums(prob_matrix[, 1:5, drop = FALSE]),
+    top_six = rowSums(prob_matrix[, 1:6, drop = FALSE]),
+    top_half = rowSums(prob_matrix[, 1:10, drop = FALSE]),
+    relegation = rowSums(prob_matrix[, 18:20, drop = FALSE])
+  )]
+
+  # Select final columns
+  result <- dt_wide[, .(
+    midName,
+    champion,
+    top_four,
+    top_five,
+    top_six,
+    top_half,
+    relegation
+  )]
+
+  # OPTIMIZATION 4: In-place sorting (faster than arrange)
+  data.table::setorder(result, -champion, -top_six, -top_half, relegation)
+
+  # Convert to tibble for compatibility
+  result_tibble <- dplyr::as_tibble(result)
+
+  # Apply formatting using the original pattern for compatibility
+  # Note: reformat_outcomes() is assumed to be defined elsewhere in the package
+  result_tibble <- result_tibble |>
     dplyr::mutate(
       dplyr::across(
         .cols = -"midName",
         .fns = ~ reformat_outcomes(value = .x)
       )
     )
+
+  return(result_tibble)
 }
