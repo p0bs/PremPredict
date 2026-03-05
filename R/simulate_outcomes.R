@@ -19,7 +19,7 @@
 #'
 simulate_outcomes <- function(data_standings_simulations, value_number_sims) {
   # Declare variables for R CMD check
-  midName <- ranking <- . <- ..prob_cols <- NULL
+  midName <- ranking <- . <- ..prob_cols <- prob_cols <- NULL
   champion <- top_four <- top_five <- top_six <- top_half <- relegation <- NULL
 
   # Convert to data.table
